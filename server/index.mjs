@@ -54,6 +54,128 @@ const allowedValues = {
   boneMass: ['light', 'medium', 'strong', 'unknown'],
 };
 
+const russianLabels = {
+  faceShape: {
+    oval: 'овальная форма лица',
+    round: 'круглая форма лица',
+    square: 'квадратная форма лица',
+    long: 'вытянутая форма лица',
+    unknown: 'форма лица читается неуверенно',
+  },
+  beard: {
+    none: 'без бороды',
+    stubble: 'есть щетина',
+    short_beard: 'есть короткая борода',
+    full_beard: 'есть полная борода',
+    unknown: 'борода по фото читается неуверенно',
+  },
+  topLength: {
+    very_short: 'верх очень короткий',
+    short: 'верх короткий',
+    medium: 'верх средней длины',
+    long: 'верх длинный',
+    unknown: 'длину сверху трудно оценить',
+  },
+  currentSides: {
+    fresh_short: 'бока уже короткие',
+    grown: 'бока заметно отросли',
+    natural: 'бока выглядят более натурально',
+    unknown: 'состояние боков неочевидно',
+  },
+  hairType: {
+    thin: 'волосы ближе к тонким',
+    normal: 'волосы выглядят нормальными по плотности',
+    thick: 'волосы выглядят густыми',
+    wavy: 'волосы выглядят волнистыми',
+    unknown: 'тип волос читается неуверенно',
+  },
+  boneMass: {
+    light: 'костная структура выглядит более лёгкой',
+    medium: 'костная структура выглядит сбалансированной',
+    strong: 'костная структура выглядит более выраженной',
+    unknown: 'костную структуру сложно оценить точно',
+  },
+};
+
+function containsCyrillic(text) {
+  return /[А-Яа-яЁёІіЇїЄє]/.test(String(text || ''));
+}
+
+function localizePhotoQualityText(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return 'Кадр принят.';
+
+  const lower = raw.toLowerCase();
+  if (['good', 'great', 'ok', 'okay', 'accepted', 'usable', 'clear', 'pass'].includes(lower)) {
+    return 'Кадр принят.';
+  }
+  if (['poor', 'bad'].includes(lower)) {
+    return 'Качество слабое: нужен более ровный свет и меньше движения.';
+  }
+  if (['fair', 'average'].includes(lower)) {
+    return 'Качество среднее: лучше добавить свет и замереть перед снимком.';
+  }
+  if (lower.includes('dark') || lower.includes('lighting')) {
+    return 'Темновато: нужен более ровный свет на лице.';
+  }
+  if (lower.includes('blur') || lower.includes('motion')) {
+    return 'Есть смаз: лучше не двигаться в момент снимка.';
+  }
+  if (lower.includes('profile')) {
+    return 'Профиль читается слабо: нужно довернуть голову сильнее.';
+  }
+  if (!containsCyrillic(raw)) {
+    return 'Кадр принят, но качество можно улучшить.';
+  }
+
+  return raw;
+}
+
+function buildRussianNotes(output) {
+  const summary = [
+    russianLabels.faceShape[output.faceShape],
+    russianLabels.beard[output.beard],
+    russianLabels.topLength[output.topLength],
+    russianLabels.currentSides[output.currentSides],
+    russianLabels.hairType[output.hairType],
+  ].filter(Boolean);
+
+  const uncertainFields = Object.entries(output.confidence || {})
+    .filter(([, value]) => Number(value) > 0 && Number(value) < 0.65)
+    .map(([key]) => {
+      const map = {
+        faceShape: 'форме лица',
+        beard: 'бороде',
+        topLength: 'длине сверху',
+        currentSides: 'бокам',
+        hairType: 'типу волос',
+        boneMass: 'костной структуре',
+      };
+      return map[key];
+    })
+    .filter(Boolean);
+
+  const weakPhotos = Object.values(output.photoQuality || {}).filter((value) =>
+    /слаб|средн|темновато|смаз|не хватает|нечёт|профиль/i.test(String(value || '')),
+  );
+
+  const parts = [];
+  if (summary.length) {
+    parts.push(`По фото система сейчас видит: ${summary.join(', ')}.`);
+  }
+  if (output.boneMass && output.boneMass !== 'unknown') {
+    parts.push(`${russianLabels.boneMass[output.boneMass]}.`);
+  }
+  if (uncertainFields.length) {
+    parts.push(`Ниже уверенность по: ${uncertainFields.join(', ')}.`);
+  }
+  if (weakPhotos.length) {
+    parts.push('Точность оценки снижают свет, смаз или слабая читаемость профиля.');
+  }
+
+  return parts.join(' ').slice(0, 700);
+}
+
 function sendJson(response, status, body) {
   response.writeHead(status, {
     'content-type': 'application/json; charset=utf-8',
@@ -174,11 +296,12 @@ function normalizeAnalysis(input) {
   }
 
   output.photoQuality = {
-    front: String(input?.photoQuality?.front || ''),
-    leftProfile: String(input?.photoQuality?.leftProfile || ''),
-    rightProfile: String(input?.photoQuality?.rightProfile || ''),
+    front: localizePhotoQualityText(input?.photoQuality?.front),
+    leftProfile: localizePhotoQualityText(input?.photoQuality?.leftProfile),
+    rightProfile: localizePhotoQualityText(input?.photoQuality?.rightProfile),
   };
-  output.notes = String(input?.notes || '').slice(0, 700);
+  const rawNotes = String(input?.notes || '').trim();
+  output.notes = containsCyrillic(rawNotes) ? rawNotes.slice(0, 700) : buildRussianNotes(output);
 
   return output;
 }
@@ -188,6 +311,7 @@ function buildMessages(photos) {
     'You are a barber consultation vision assistant for a men haircut recommendation product.',
     'Analyze three client photos: front, left profile, right profile.',
     'Return strict JSON only. No markdown. No extra prose.',
+    'All free-text fields must be in Russian.',
     '',
     'Classify only these enum values:',
     'faceShape: oval, round, square, long, unknown',
@@ -204,6 +328,8 @@ function buildMessages(photos) {
     '- currentSides estimates whether sides are already short, grown out, natural, or unclear.',
     '- beard must reflect current facial hair only. Clean shaven must be none.',
     '- If uncertain, use unknown and low confidence.',
+    '- photoQuality values must be short Russian assessments for each photo.',
+    '- notes must be plain Russian, concise, and useful for a barber or client review screen.',
     '',
     'JSON schema:',
     '{"faceShape":"","beard":"","topLength":"","currentSides":"","hairType":"","boneMass":"","confidence":{"faceShape":0,"beard":0,"topLength":0,"currentSides":0,"hairType":0,"boneMass":0},"photoQuality":{"front":"","leftProfile":"","rightProfile":""},"notes":""}',

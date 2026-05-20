@@ -26,6 +26,7 @@ const imageAngles = ['front', 'left-profile', 'right-profile'];
 const scanConfidenceThreshold = 0.65;
 const scannerDerivedFields = ['topLength', 'currentSides', 'faceShape', 'hairType', 'beard'];
 const profileAutoCaptureDelayMs = 5000;
+const mannequinUiEnabled = false;
 const scanPhotoSteps = [
   { id: 'front', label: 'Анфас', target: 'front', hint: 'Смотри прямо в камеру. Нейтральное лицо, лицо полностью в кадре.', capture: 'user' },
   { id: 'rightProfile', label: 'Правый профиль', target: 'right', hint: 'Поверни голову вправо. Должны быть видны линия челюсти, волосы и борода.', capture: 'environment' },
@@ -65,9 +66,9 @@ const questions = [
     title: 'Что сейчас по длине сверху?',
     helper: 'Не предлагаем форму, которую сегодня физически нельзя сделать без отращивания.',
     options: [
-      { value: 'very_short', label: 'Очень коротко', hint: 'Почти buzz, сверху до 1-2 см.' },
-      { value: 'short', label: 'Коротко', hint: 'Есть база под crop, taper или crew cut.' },
-      { value: 'medium', label: 'Средне', hint: 'Можно делать текстуру, пробор, quiff.' },
+      { value: 'very_short', label: 'Очень коротко', hint: 'Почти под машинку, сверху до 1-2 см.' },
+      { value: 'short', label: 'Коротко', hint: 'Есть база под кроп, тейпер или крю-кат.' },
+      { value: 'medium', label: 'Средне', hint: 'Можно делать текстуру, пробор или объём спереди.' },
       { value: 'long', label: 'Длинно', hint: 'Можно сохранить длину или мягко обновить форму.' },
     ],
   },
@@ -75,9 +76,9 @@ const questions = [
     id: 'currentSides',
     eyebrow: '02 / бока',
     title: 'Что сейчас по бокам?',
-    helper: 'Это влияет на то, можно ли делать fade прямо сейчас или лучше идти мягче.',
+    helper: 'Это влияет на то, можно ли делать короткий переход прямо сейчас или лучше идти мягче.',
     options: [
-      { value: 'fresh_short', label: 'Уже коротко', hint: 'Можно поддержать fade или taper.' },
+      { value: 'fresh_short', label: 'Уже коротко', hint: 'Можно поддержать фейд или тейпер.' },
       { value: 'grown', label: 'Заросло', hint: 'Есть место для заметного обновления.' },
       { value: 'natural', label: 'Нормально', hint: 'Можно оставить более мягкий силуэт.' },
       { value: 'unknown', label: 'Не знаю', hint: 'Система выберет более безопасные варианты.' },
@@ -132,14 +133,14 @@ const questions = [
   },
   {
     id: 'sidePreference',
-    eyebrow: '07 / fade',
+    eyebrow: '07 / переход',
     title: 'Что можно делать по бокам?',
-    helper: 'Если человек не хочет коротко, слишком агрессивные fade мы не показываем.',
+    helper: 'Если человек не хочет коротко, слишком агрессивный переход мы не показываем.',
     options: [
       { value: 'no_short', label: 'Не коротко', hint: 'Оставить спокойный натуральный край.' },
-      { value: 'soft_taper', label: 'Мягкий taper', hint: 'Чисто, но без резкого контраста.' },
-      { value: 'fade', label: 'Fade можно', hint: 'Можно заметный переход.' },
-      { value: 'very_short', label: 'Можно очень коротко', hint: 'Buzz, skin fade и более резкая форма.' },
+      { value: 'soft_taper', label: 'Мягкий тейпер', hint: 'Чисто, но без резкого контраста.' },
+      { value: 'fade', label: 'Фейд можно', hint: 'Можно заметный переход.' },
+      { value: 'very_short', label: 'Можно очень коротко', hint: 'Очень короткая машинка, скин-фейд и более резкая форма.' },
     ],
   },
   {
@@ -442,66 +443,115 @@ const initialAnswers = questions.reduce((acc, question) => {
 
 const haircutCopy = {
   'low-taper': {
+    displayName: 'Низкий тейпер',
     clientWhy: 'Самый безопасный способ выглядеть свежее: чистые виски, натуральный верх, без резкой смены образа.',
-    barberNote: 'Низкий taper на висках и затылке. Сверху сохранить натуральную форму и не делать контур слишком жестким.',
+    barberNote: 'Низкий тейпер на висках и затылке. Сверху сохранить натуральную форму и не делать контур слишком жестким.',
     upkeep: '0-3 минуты',
   },
   'textured-crop': {
+    displayName: 'Текстурный кроп',
     clientWhy: 'Убирает лишний объем по бокам и дает современную форму без сложной ежедневной укладки.',
-    barberNote: 'Сделать текстуру сверху, не утяжелять челку, по бокам держать clean taper или fade.',
+    barberNote: 'Сделать текстуру сверху, не утяжелять челку, по бокам держать чистый тейпер или мягкий фейд.',
     upkeep: '3-5 минут',
   },
   'french-crop': {
+    displayName: 'Френч кроп',
     clientWhy: 'Короткая текстура выглядит современно и не требует фена каждый день.',
-    barberNote: 'Короткая текстурная челка, аккуратная филировка сверху, fade подобрать по форме головы.',
+    barberNote: 'Короткая текстурная челка, аккуратная филировка сверху, фейд подобрать по форме головы.',
     upkeep: '0-5 минут',
   },
   'crew-cut': {
+    displayName: 'Крю-кат',
     clientWhy: 'Чистый короткий силуэт, который легко носить без стайлинга.',
     barberNote: 'Сверху чуть длиннее, чем по бокам. Переход держать низко или средне, не делать плоскую макушку.',
     upkeep: '0 минут',
   },
   'buzz-fade': {
+    displayName: 'Базз-фейд',
     clientWhy: 'Минимум укладки и резкое ощущение свежести, если человек готов к короткой форме.',
-    barberNote: 'Верх 6-12 мм по форме головы, fade не задирать слишком высоко, контур оставить чистым.',
+    barberNote: 'Верх 6-12 мм по форме головы, фейд не задирать слишком высоко, контур оставить чистым.',
     upkeep: '0 минут',
   },
   'classic-scissor': {
+    displayName: 'Классика ножницами',
     clientWhy: 'Не выглядит как резкая смена имиджа, но делает форму дороже и аккуратнее.',
     barberNote: 'Работа ножницами, натуральные виски, убрать лишнюю массу на макушке, оставить живое движение волос.',
     upkeep: '3-5 минут',
   },
   'modern-side-part': {
+    displayName: 'Современный боковой пробор',
     clientWhy: 'Собранный взрослый образ, который хорошо работает с офисным стилем и бородой.',
     barberNote: 'Сохранить длину сверху, мягкий пробор, убрать массу по бокам и выровнять связку с бородой.',
     upkeep: '5-10 минут',
   },
   'ivy-league': {
+    displayName: 'Айви-лиг',
     clientWhy: 'Коротко и аккуратно, но не скучно. Хороший вариант, если хочется выглядеть взрослее.',
-    barberNote: 'Сверху оставить длину для легкого направления, виски мягко почистить через taper или fade.',
+    barberNote: 'Сверху оставить длину для легкого направления, виски мягко почистить через тейпер или фейд.',
     upkeep: '3-5 минут',
   },
   'messy-fringe': {
+    displayName: 'Небрежная челка',
     clientWhy: 'Дает молодую текстуру и движение, если волосы позволяют держать форму.',
     barberNote: 'Оставить движение спереди, снять массу по бокам, не делать тяжелую челку.',
     upkeep: '3-10 минут',
   },
   'short-quiff': {
+    displayName: 'Короткий квифф',
     clientWhy: 'Добавляет высоту и заметную форму, но требует готовности укладываться.',
     barberNote: 'Сохранить длину во фронтальной зоне, бока держать чище и объяснить укладку феном.',
     upkeep: '10 минут',
   },
   'soft-flow': {
+    displayName: 'Мягкий флоу',
     clientWhy: 'Сохраняет длину и выглядит естественно, если не хочется коротких боков.',
     barberNote: 'Слои по верхней зоне, убрать тяжесть вокруг ушей, оставить натуральную линию роста.',
     upkeep: '5-10 минут',
   },
   curtains: {
+    displayName: 'Шторки / прямой пробор',
     clientWhy: 'Работает, если длина уже есть и хочется мягкий молодежный силуэт.',
     barberNote: 'Не снимать длину спереди, открыть лицо, убрать тяжесть по бокам и затылку.',
     upkeep: '5-10 минут',
   },
 };
+
+function localizePhotoQuality(value, fallbackLabel) {
+  const raw = String(value || '').trim();
+  if (!raw) return `${fallbackLabel}: кадр принят.`;
+
+  const lower = raw.toLowerCase();
+  if (['good', 'great', 'ok', 'okay', 'accepted', 'usable', 'clear', 'pass'].includes(lower)) {
+    return `${fallbackLabel}: кадр принят.`;
+  }
+  if (['poor', 'bad'].includes(lower)) {
+    return `${fallbackLabel}: качество слабое — нужен ровный свет и меньше движения.`;
+  }
+  if (['fair', 'average'].includes(lower)) {
+    return `${fallbackLabel}: кадр средний — лучше добавить свет и замереть на секунду.`;
+  }
+  if (lower.includes('dark') || lower.includes('lighting')) {
+    return `${fallbackLabel}: темновато — нужен более ровный свет на лице.`;
+  }
+  if (lower.includes('blur') || lower.includes('motion')) {
+    return `${fallbackLabel}: есть смаз — лучше не двигаться в момент снимка.`;
+  }
+  if (lower.includes('profile')) {
+    return `${fallbackLabel}: профиль читается слабо — доверни голову сильнее.`;
+  }
+  if (!/[А-Яа-яЁёІіЇїЄє]/.test(raw)) {
+    return `${fallbackLabel}: кадр принят, но качество можно улучшить.`;
+  }
+
+  return `${fallbackLabel}: ${raw}`;
+}
+
+function localizeAnalysisNotes(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return 'Дополнительных заметок нет.';
+  if (/[А-Яа-яЁёІіЇїЄє]/.test(raw)) return raw;
+  return 'Скан завершён, но для более точной текстовой оценки лучше переснять фото при ровном свете и без смаза.';
+}
 
 const answerLabels = questions.reduce((acc, question) => {
   question.options.forEach((option) => {
@@ -809,7 +859,7 @@ function rejectionReason(haircut, answers) {
   }
 
   if (answers.sidePreference && !haircut.allowed.sidePreference.includes(answers.sidePreference)) {
-    return 'не подходит по бокам и fade';
+    return 'не подходит по длине и переходу по бокам';
   }
 
   if (answers.styling && !haircut.allowed.styling.includes(answers.styling)) {
@@ -842,6 +892,7 @@ function buildResults(answers) {
   return selected.map((haircut, index) => ({
     ...haircut,
     ...haircutCopy[haircut.id],
+    displayName: haircutCopy[haircut.id]?.displayName || haircut.name,
     resultLabel: ['Лучший вариант', 'Смелее', 'Без лишней укладки', 'Альтернатива'][index] || 'Вариант',
   }));
 }
@@ -1123,29 +1174,29 @@ function App() {
           <div className="panel-icon">
             <Sparkles size={20} />
           </div>
-          <span className="panel-eyebrow">Сканер сначала</span>
-          <h2>Умный первый фильтр</h2>
+          <span className="panel-eyebrow">Сканер + логика подбора</span>
+          <h2>Подбор строится от лица, волос и бороды — а не от случайных картинок.</h2>
           <p>
-            Сначала отсеиваем слабые варианты, потом ранжируем только те стрижки, которые реально подходят по волосам, лицу и текущей бороде.
+            Сначала система собирает объективные признаки по фото, потом сокращает анкету и оставляет только объяснимые варианты стрижки.
           </p>
         </div>
 
         <div className="panel-card">
-          <h3>Как это работает</h3>
+          <h3>Что учитывает система</h3>
           <ul>
-            <li><UserRoundCheck size={16} /> MediaPipe проверяет положение головы и качество кадра в реальном времени.</li>
-            <li><ShieldCheck size={16} /> Claude Vision считывает фото и возвращает структурированные признаки.</li>
-            <li><ClipboardList size={16} /> Каталог стрижек остается управляемым, без случайных AI-референсов.</li>
+            <li><UserRoundCheck size={16} /> Форма лица, текущая длина сверху, состояние боков и наличие бороды.</li>
+            <li><ShieldCheck size={16} /> Качество кадров, чтобы не строить рекомендации на смазанных или слабых профилях.</li>
+            <li><ClipboardList size={16} /> Управляемую библиотеку референсов, а не случайные картинки из интернета.</li>
           </ul>
         </div>
 
-        <div className="mini-catalog">
-          {haircuts.slice(0, 5).map((haircut) => (
-            <div className="mini-style" key={haircut.id}>
-              <img src={pickImage(haircut, 'stubble', 'oval')} alt="" />
-              <span>{haircut.name}</span>
-            </div>
-          ))}
+        <div className="panel-card">
+          <h3>Что увидит клиент</h3>
+          <ul>
+            <li><ShieldCheck size={16} /> 3–4 стрижки, которые реально можно объяснить барберской логикой.</li>
+            <li><ClipboardList size={16} /> Референсы по нужным ракурсам, чтобы было что показать прямо в кресле.</li>
+            <li><Sparkles size={16} /> Короткую, понятную подачу без перегруза лишними блоками и “демо-магией”.</li>
+          </ul>
         </div>
       </aside>
     </main>
@@ -1544,11 +1595,11 @@ function ScanReviewView({ analysis, answers, onChange, onConfirm, onBack }) {
 
       <section className="scan-notes">
         <span className="caption">качество фото / заметки</span>
-        <p>{analysis?.notes || 'Дополнительных заметок нет.'}</p>
+        <p>{localizeAnalysisNotes(analysis?.notes)}</p>
         <div className="quality-list">
-          <span>{analysis?.photoQuality?.front || 'Анфас принят.'}</span>
-          <span>{analysis?.photoQuality?.leftProfile || 'Левый профиль принят.'}</span>
-          <span>{analysis?.photoQuality?.rightProfile || 'Правый профиль принят.'}</span>
+          <span>{localizePhotoQuality(analysis?.photoQuality?.front, 'Анфас')}</span>
+          <span>{localizePhotoQuality(analysis?.photoQuality?.leftProfile, 'Левый профиль')}</span>
+          <span>{localizePhotoQuality(analysis?.photoQuality?.rightProfile, 'Правый профиль')}</span>
         </div>
       </section>
 
@@ -1618,7 +1669,7 @@ function ResultView({ answers, analysis, ranked, topPick, onRestart }) {
   const [visualMode, setVisualMode] = useState('photo');
   const [photoAngle, setPhotoAngle] = useState('front');
   const selectedHaircut = ranked.find((haircut) => haircut.id === selectedHaircutId) || topPick;
-  const showMannequin = visualMode === 'mannequin';
+  const showMannequin = mannequinUiEnabled && visualMode === 'mannequin';
   const angleLabels = {
     front: 'Анфас',
     'left-profile': 'Левый',
@@ -1629,14 +1680,16 @@ function ResultView({ answers, analysis, ranked, topPick, onRestart }) {
     <div className="screen-content result-screen">
       <section className="result-hero">
         <span className="caption">результат</span>
-        <div className="view-toggle" aria-label="Вид изображения">
-          <button type="button" className={visualMode === 'photo' ? 'active' : ''} onClick={() => setVisualMode('photo')}>
-            Фото
-          </button>
-          <button type="button" className={visualMode === 'mannequin' ? 'active' : ''} onClick={() => setVisualMode('mannequin')}>
-            Манекен
-          </button>
-        </div>
+        {mannequinUiEnabled ? (
+          <div className="view-toggle" aria-label="Вид изображения">
+            <button type="button" className={visualMode === 'photo' ? 'active' : ''} onClick={() => setVisualMode('photo')}>
+              Фото
+            </button>
+            <button type="button" className={visualMode === 'mannequin' ? 'active' : ''} onClick={() => setVisualMode('mannequin')}>
+              Манекен
+            </button>
+          </div>
+        ) : null}
         {showMannequin ? null : (
           <div className="angle-toggle" aria-label="Ракурс фото">
             {imageAngles.map((angle) => (
@@ -1679,23 +1732,23 @@ function ResultView({ answers, analysis, ranked, topPick, onRestart }) {
               <button
                 className="photo-button"
                 type="button"
-                aria-label={`Открыть ${haircut.name}`}
+                aria-label={`Открыть ${haircut.displayName || haircut.name}`}
                 onClick={(event) => {
                   event.stopPropagation();
                   setOpenedImage({ ...haircut, image: photoSrc, fallbackImage: fallbackSrc, angle: photoAngle });
                 }}
               >
                 {showMannequin ? (
-                  <MannequinPreview haircutId={haircut.id} faceShape={answers.faceShape} beard={answers.beard} label={haircut.name} />
+                  <MannequinPreview haircutId={haircut.id} faceShape={answers.faceShape} beard={answers.beard} label={haircut.displayName || haircut.name} />
                 ) : (
-                  <ReferenceImage src={photoSrc} fallbackSrc={fallbackSrc} alt={haircut.name} />
+                  <ReferenceImage src={photoSrc} fallbackSrc={fallbackSrc} alt={haircut.displayName || haircut.name} />
                 )}
                 <span><ZoomIn size={15} /></span>
               </button>
               <div className="style-copy">
                 <div className="style-head">
                   <span>{haircut.resultLabel}</span>
-                  <strong>{haircut.name}</strong>
+                  <strong>{haircut.displayName || haircut.name}</strong>
                 </div>
                 <p>{haircut.clientWhy}</p>
                 <div className="tags">
@@ -1712,10 +1765,10 @@ function ResultView({ answers, analysis, ranked, topPick, onRestart }) {
 
       <section className="barber-note">
         <span className="caption">карточка барбера</span>
-        <h3>{selectedHaircut.name}</h3>
+        <h3>{selectedHaircut.displayName || selectedHaircut.name}</h3>
         <p>{selectedHaircut.barberNote}</p>
         {answers.boneMass ? <p className="bone-note">{boneMassNotes[answers.boneMass] || boneMassNotes.unknown}</p> : null}
-        {analysis?.notes ? <p className="bone-note">{analysis.notes}</p> : null}
+        {analysis?.notes ? <p className="bone-note">{localizeAnalysisNotes(analysis.notes)}</p> : null}
         <div className="answer-pills">
           {Object.entries(answers).map(([key, value]) => (
             value ? <span key={key}>{key === 'boneMass' ? 'Кость: ' : ''}{answerLabels[value] || value}</span> : null
@@ -1736,14 +1789,14 @@ function ResultView({ answers, analysis, ranked, topPick, onRestart }) {
             </button>
             {showMannequin ? (
               <div className="modal-mannequin">
-                <MannequinPreview haircutId={openedImage.id} faceShape={answers.faceShape} beard={answers.beard} label={openedImage.name} />
+                <MannequinPreview haircutId={openedImage.id} faceShape={answers.faceShape} beard={answers.beard} label={openedImage.displayName || openedImage.name} />
               </div>
             ) : (
-              <ReferenceImage src={openedImage.image} fallbackSrc={openedImage.fallbackImage} alt={openedImage.name} />
+              <ReferenceImage src={openedImage.image} fallbackSrc={openedImage.fallbackImage} alt={openedImage.displayName || openedImage.name} />
             )}
             <div>
               <span className="caption">{showMannequin ? 'манекен' : angleLabels[openedImage.angle] || 'референс'}</span>
-              <h3>{openedImage.name}</h3>
+              <h3>{openedImage.displayName || openedImage.name}</h3>
               <p>{openedImage.clientWhy}</p>
             </div>
           </div>
