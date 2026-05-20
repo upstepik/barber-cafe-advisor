@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: barber-cafe-advisor
+    runtime: node
+    plan: free
+    region: frankfurt
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SERVE_DIST
+        value: "1"
+      - key: NODE_VERSION
+        value: "22"
+      - key: VIBECODE_BASE_URL
+        sync: false
+      - key: VIBECODE_API_KEY
+        sync: false
+      - key: VIBECODE_MODEL
+        sync: false

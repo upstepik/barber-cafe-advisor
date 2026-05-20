@@ -1,0 +1,347 @@
+{
+  "generatedAt": "2026-05-09T09:55:59.845Z",
+  "contactSheetRoot": "contact-sheets/front",
+  "outputRoot": "public/assets/haircuts",
+  "grid": {
+    "columns": 4,
+    "rows": 3
+  },
+  "order": [
+    "low-taper",
+    "textured-crop",
+    "french-crop",
+    "crew-cut",
+    "buzz-fade",
+    "classic-scissor",
+    "modern-side-part",
+    "ivy-league",
+    "messy-fringe",
+    "short-quiff",
+    "soft-flow",
+    "curtains"
+  ],
+  "totalSheets": 16,
+  "totalOutputs": 192,
+  "jobs": [
+    {
+      "faceShape": "oval",
+      "beardState": "none",
+      "sheet": "contact-sheets/front/oval-none.png",
+      "outputs": [
+        "public/assets/haircuts/oval/none/low-taper.png",
+        "public/assets/haircuts/oval/none/textured-crop.png",
+        "public/assets/haircuts/oval/none/french-crop.png",
+        "public/assets/haircuts/oval/none/crew-cut.png",
+        "public/assets/haircuts/oval/none/buzz-fade.png",
+        "public/assets/haircuts/oval/none/classic-scissor.png",
+        "public/assets/haircuts/oval/none/modern-side-part.png",
+        "public/assets/haircuts/oval/none/ivy-league.png",
+        "public/assets/haircuts/oval/none/messy-fringe.png",
+        "public/assets/haircuts/oval/none/short-quiff.png",
+        "public/assets/haircuts/oval/none/soft-flow.png",
+        "public/assets/haircuts/oval/none/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, oval face shape, balanced proportions, clean shaven, no beard, no mustache, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly oval: balanced forehead, cheekbones, and jaw with natural proportions.\nThe person must be clean shaven in every cell: no beard, no mustache, no visible stubble."
+    },
+    {
+      "faceShape": "oval",
+      "beardState": "stubble",
+      "sheet": "contact-sheets/front/oval-stubble.png",
+      "outputs": [
+        "public/assets/haircuts/oval/stubble/low-taper.png",
+        "public/assets/haircuts/oval/stubble/textured-crop.png",
+        "public/assets/haircuts/oval/stubble/french-crop.png",
+        "public/assets/haircuts/oval/stubble/crew-cut.png",
+        "public/assets/haircuts/oval/stubble/buzz-fade.png",
+        "public/assets/haircuts/oval/stubble/classic-scissor.png",
+        "public/assets/haircuts/oval/stubble/modern-side-part.png",
+        "public/assets/haircuts/oval/stubble/ivy-league.png",
+        "public/assets/haircuts/oval/stubble/messy-fringe.png",
+        "public/assets/haircuts/oval/stubble/short-quiff.png",
+        "public/assets/haircuts/oval/stubble/soft-flow.png",
+        "public/assets/haircuts/oval/stubble/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, oval face shape, balanced proportions, light stubble only, no full beard, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly oval: balanced forehead, cheekbones, and jaw with natural proportions.\nUse light stubble only in every cell: subtle shadow, no full beard, no heavy mustache."
+    },
+    {
+      "faceShape": "oval",
+      "beardState": "short_beard",
+      "sheet": "contact-sheets/front/oval-short_beard.png",
+      "outputs": [
+        "public/assets/haircuts/oval/short_beard/low-taper.png",
+        "public/assets/haircuts/oval/short_beard/textured-crop.png",
+        "public/assets/haircuts/oval/short_beard/french-crop.png",
+        "public/assets/haircuts/oval/short_beard/crew-cut.png",
+        "public/assets/haircuts/oval/short_beard/buzz-fade.png",
+        "public/assets/haircuts/oval/short_beard/classic-scissor.png",
+        "public/assets/haircuts/oval/short_beard/modern-side-part.png",
+        "public/assets/haircuts/oval/short_beard/ivy-league.png",
+        "public/assets/haircuts/oval/short_beard/messy-fringe.png",
+        "public/assets/haircuts/oval/short_beard/short-quiff.png",
+        "public/assets/haircuts/oval/short_beard/soft-flow.png",
+        "public/assets/haircuts/oval/short_beard/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, oval face shape, balanced proportions, short neat beard, tidy grooming, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly oval: balanced forehead, cheekbones, and jaw with natural proportions.\nUse the same short neat beard in every cell: tidy grooming, controlled cheek and neck lines."
+    },
+    {
+      "faceShape": "oval",
+      "beardState": "full_beard",
+      "sheet": "contact-sheets/front/oval-full_beard.png",
+      "outputs": [
+        "public/assets/haircuts/oval/full_beard/low-taper.png",
+        "public/assets/haircuts/oval/full_beard/textured-crop.png",
+        "public/assets/haircuts/oval/full_beard/french-crop.png",
+        "public/assets/haircuts/oval/full_beard/crew-cut.png",
+        "public/assets/haircuts/oval/full_beard/buzz-fade.png",
+        "public/assets/haircuts/oval/full_beard/classic-scissor.png",
+        "public/assets/haircuts/oval/full_beard/modern-side-part.png",
+        "public/assets/haircuts/oval/full_beard/ivy-league.png",
+        "public/assets/haircuts/oval/full_beard/messy-fringe.png",
+        "public/assets/haircuts/oval/full_beard/short-quiff.png",
+        "public/assets/haircuts/oval/full_beard/soft-flow.png",
+        "public/assets/haircuts/oval/full_beard/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, oval face shape, balanced proportions, full groomed beard, neat shape, not oversized, not very long, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly oval: balanced forehead, cheekbones, and jaw with natural proportions.\nUse the same full groomed beard in every cell: neat shape, not oversized, not very long."
+    },
+    {
+      "faceShape": "round",
+      "beardState": "none",
+      "sheet": "contact-sheets/front/round-none.png",
+      "outputs": [
+        "public/assets/haircuts/round/none/low-taper.png",
+        "public/assets/haircuts/round/none/textured-crop.png",
+        "public/assets/haircuts/round/none/french-crop.png",
+        "public/assets/haircuts/round/none/crew-cut.png",
+        "public/assets/haircuts/round/none/buzz-fade.png",
+        "public/assets/haircuts/round/none/classic-scissor.png",
+        "public/assets/haircuts/round/none/modern-side-part.png",
+        "public/assets/haircuts/round/none/ivy-league.png",
+        "public/assets/haircuts/round/none/messy-fringe.png",
+        "public/assets/haircuts/round/none/short-quiff.png",
+        "public/assets/haircuts/round/none/soft-flow.png",
+        "public/assets/haircuts/round/none/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, round face shape, fuller cheeks, softer jaw, clean shaven, no beard, no mustache, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly round: fuller cheeks, softer jaw, and less vertical length than the oval or long variants.\nThe person must be clean shaven in every cell: no beard, no mustache, no visible stubble."
+    },
+    {
+      "faceShape": "round",
+      "beardState": "stubble",
+      "sheet": "contact-sheets/front/round-stubble.png",
+      "outputs": [
+        "public/assets/haircuts/round/stubble/low-taper.png",
+        "public/assets/haircuts/round/stubble/textured-crop.png",
+        "public/assets/haircuts/round/stubble/french-crop.png",
+        "public/assets/haircuts/round/stubble/crew-cut.png",
+        "public/assets/haircuts/round/stubble/buzz-fade.png",
+        "public/assets/haircuts/round/stubble/classic-scissor.png",
+        "public/assets/haircuts/round/stubble/modern-side-part.png",
+        "public/assets/haircuts/round/stubble/ivy-league.png",
+        "public/assets/haircuts/round/stubble/messy-fringe.png",
+        "public/assets/haircuts/round/stubble/short-quiff.png",
+        "public/assets/haircuts/round/stubble/soft-flow.png",
+        "public/assets/haircuts/round/stubble/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, round face shape, fuller cheeks, softer jaw, light stubble only, no full beard, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly round: fuller cheeks, softer jaw, and less vertical length than the oval or long variants.\nUse light stubble only in every cell: subtle shadow, no full beard, no heavy mustache."
+    },
+    {
+      "faceShape": "round",
+      "beardState": "short_beard",
+      "sheet": "contact-sheets/front/round-short_beard.png",
+      "outputs": [
+        "public/assets/haircuts/round/short_beard/low-taper.png",
+        "public/assets/haircuts/round/short_beard/textured-crop.png",
+        "public/assets/haircuts/round/short_beard/french-crop.png",
+        "public/assets/haircuts/round/short_beard/crew-cut.png",
+        "public/assets/haircuts/round/short_beard/buzz-fade.png",
+        "public/assets/haircuts/round/short_beard/classic-scissor.png",
+        "public/assets/haircuts/round/short_beard/modern-side-part.png",
+        "public/assets/haircuts/round/short_beard/ivy-league.png",
+        "public/assets/haircuts/round/short_beard/messy-fringe.png",
+        "public/assets/haircuts/round/short_beard/short-quiff.png",
+        "public/assets/haircuts/round/short_beard/soft-flow.png",
+        "public/assets/haircuts/round/short_beard/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, round face shape, fuller cheeks, softer jaw, short neat beard, tidy grooming, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly round: fuller cheeks, softer jaw, and less vertical length than the oval or long variants.\nUse the same short neat beard in every cell: tidy grooming, controlled cheek and neck lines."
+    },
+    {
+      "faceShape": "round",
+      "beardState": "full_beard",
+      "sheet": "contact-sheets/front/round-full_beard.png",
+      "outputs": [
+        "public/assets/haircuts/round/full_beard/low-taper.png",
+        "public/assets/haircuts/round/full_beard/textured-crop.png",
+        "public/assets/haircuts/round/full_beard/french-crop.png",
+        "public/assets/haircuts/round/full_beard/crew-cut.png",
+        "public/assets/haircuts/round/full_beard/buzz-fade.png",
+        "public/assets/haircuts/round/full_beard/classic-scissor.png",
+        "public/assets/haircuts/round/full_beard/modern-side-part.png",
+        "public/assets/haircuts/round/full_beard/ivy-league.png",
+        "public/assets/haircuts/round/full_beard/messy-fringe.png",
+        "public/assets/haircuts/round/full_beard/short-quiff.png",
+        "public/assets/haircuts/round/full_beard/soft-flow.png",
+        "public/assets/haircuts/round/full_beard/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, round face shape, fuller cheeks, softer jaw, full groomed beard, neat shape, not oversized, not very long, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly round: fuller cheeks, softer jaw, and less vertical length than the oval or long variants.\nUse the same full groomed beard in every cell: neat shape, not oversized, not very long."
+    },
+    {
+      "faceShape": "square",
+      "beardState": "none",
+      "sheet": "contact-sheets/front/square-none.png",
+      "outputs": [
+        "public/assets/haircuts/square/none/low-taper.png",
+        "public/assets/haircuts/square/none/textured-crop.png",
+        "public/assets/haircuts/square/none/french-crop.png",
+        "public/assets/haircuts/square/none/crew-cut.png",
+        "public/assets/haircuts/square/none/buzz-fade.png",
+        "public/assets/haircuts/square/none/classic-scissor.png",
+        "public/assets/haircuts/square/none/modern-side-part.png",
+        "public/assets/haircuts/square/none/ivy-league.png",
+        "public/assets/haircuts/square/none/messy-fringe.png",
+        "public/assets/haircuts/square/none/short-quiff.png",
+        "public/assets/haircuts/square/none/soft-flow.png",
+        "public/assets/haircuts/square/none/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, square face shape, defined jaw, broader lower face, clean shaven, no beard, no mustache, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly square: defined jaw, broader lower face, and strong but realistic barber-reference proportions.\nThe person must be clean shaven in every cell: no beard, no mustache, no visible stubble."
+    },
+    {
+      "faceShape": "square",
+      "beardState": "stubble",
+      "sheet": "contact-sheets/front/square-stubble.png",
+      "outputs": [
+        "public/assets/haircuts/square/stubble/low-taper.png",
+        "public/assets/haircuts/square/stubble/textured-crop.png",
+        "public/assets/haircuts/square/stubble/french-crop.png",
+        "public/assets/haircuts/square/stubble/crew-cut.png",
+        "public/assets/haircuts/square/stubble/buzz-fade.png",
+        "public/assets/haircuts/square/stubble/classic-scissor.png",
+        "public/assets/haircuts/square/stubble/modern-side-part.png",
+        "public/assets/haircuts/square/stubble/ivy-league.png",
+        "public/assets/haircuts/square/stubble/messy-fringe.png",
+        "public/assets/haircuts/square/stubble/short-quiff.png",
+        "public/assets/haircuts/square/stubble/soft-flow.png",
+        "public/assets/haircuts/square/stubble/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, square face shape, defined jaw, broader lower face, light stubble only, no full beard, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly square: defined jaw, broader lower face, and strong but realistic barber-reference proportions.\nUse light stubble only in every cell: subtle shadow, no full beard, no heavy mustache."
+    },
+    {
+      "faceShape": "square",
+      "beardState": "short_beard",
+      "sheet": "contact-sheets/front/square-short_beard.png",
+      "outputs": [
+        "public/assets/haircuts/square/short_beard/low-taper.png",
+        "public/assets/haircuts/square/short_beard/textured-crop.png",
+        "public/assets/haircuts/square/short_beard/french-crop.png",
+        "public/assets/haircuts/square/short_beard/crew-cut.png",
+        "public/assets/haircuts/square/short_beard/buzz-fade.png",
+        "public/assets/haircuts/square/short_beard/classic-scissor.png",
+        "public/assets/haircuts/square/short_beard/modern-side-part.png",
+        "public/assets/haircuts/square/short_beard/ivy-league.png",
+        "public/assets/haircuts/square/short_beard/messy-fringe.png",
+        "public/assets/haircuts/square/short_beard/short-quiff.png",
+        "public/assets/haircuts/square/short_beard/soft-flow.png",
+        "public/assets/haircuts/square/short_beard/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, square face shape, defined jaw, broader lower face, short neat beard, tidy grooming, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly square: defined jaw, broader lower face, and strong but realistic barber-reference proportions.\nUse the same short neat beard in every cell: tidy grooming, controlled cheek and neck lines."
+    },
+    {
+      "faceShape": "square",
+      "beardState": "full_beard",
+      "sheet": "contact-sheets/front/square-full_beard.png",
+      "outputs": [
+        "public/assets/haircuts/square/full_beard/low-taper.png",
+        "public/assets/haircuts/square/full_beard/textured-crop.png",
+        "public/assets/haircuts/square/full_beard/french-crop.png",
+        "public/assets/haircuts/square/full_beard/crew-cut.png",
+        "public/assets/haircuts/square/full_beard/buzz-fade.png",
+        "public/assets/haircuts/square/full_beard/classic-scissor.png",
+        "public/assets/haircuts/square/full_beard/modern-side-part.png",
+        "public/assets/haircuts/square/full_beard/ivy-league.png",
+        "public/assets/haircuts/square/full_beard/messy-fringe.png",
+        "public/assets/haircuts/square/full_beard/short-quiff.png",
+        "public/assets/haircuts/square/full_beard/soft-flow.png",
+        "public/assets/haircuts/square/full_beard/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, square face shape, defined jaw, broader lower face, full groomed beard, neat shape, not oversized, not very long, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly square: defined jaw, broader lower face, and strong but realistic barber-reference proportions.\nUse the same full groomed beard in every cell: neat shape, not oversized, not very long."
+    },
+    {
+      "faceShape": "long",
+      "beardState": "none",
+      "sheet": "contact-sheets/front/long-none.png",
+      "outputs": [
+        "public/assets/haircuts/long/none/low-taper.png",
+        "public/assets/haircuts/long/none/textured-crop.png",
+        "public/assets/haircuts/long/none/french-crop.png",
+        "public/assets/haircuts/long/none/crew-cut.png",
+        "public/assets/haircuts/long/none/buzz-fade.png",
+        "public/assets/haircuts/long/none/classic-scissor.png",
+        "public/assets/haircuts/long/none/modern-side-part.png",
+        "public/assets/haircuts/long/none/ivy-league.png",
+        "public/assets/haircuts/long/none/messy-fringe.png",
+        "public/assets/haircuts/long/none/short-quiff.png",
+        "public/assets/haircuts/long/none/soft-flow.png",
+        "public/assets/haircuts/long/none/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, long / oblong face shape, narrower cheeks, longer vertical proportions, clean shaven, no beard, no mustache, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly long or oblong: narrower cheeks and longer vertical proportions without looking older.\nThe person must be clean shaven in every cell: no beard, no mustache, no visible stubble."
+    },
+    {
+      "faceShape": "long",
+      "beardState": "stubble",
+      "sheet": "contact-sheets/front/long-stubble.png",
+      "outputs": [
+        "public/assets/haircuts/long/stubble/low-taper.png",
+        "public/assets/haircuts/long/stubble/textured-crop.png",
+        "public/assets/haircuts/long/stubble/french-crop.png",
+        "public/assets/haircuts/long/stubble/crew-cut.png",
+        "public/assets/haircuts/long/stubble/buzz-fade.png",
+        "public/assets/haircuts/long/stubble/classic-scissor.png",
+        "public/assets/haircuts/long/stubble/modern-side-part.png",
+        "public/assets/haircuts/long/stubble/ivy-league.png",
+        "public/assets/haircuts/long/stubble/messy-fringe.png",
+        "public/assets/haircuts/long/stubble/short-quiff.png",
+        "public/assets/haircuts/long/stubble/soft-flow.png",
+        "public/assets/haircuts/long/stubble/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, long / oblong face shape, narrower cheeks, longer vertical proportions, light stubble only, no full beard, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly long or oblong: narrower cheeks and longer vertical proportions without looking older.\nUse light stubble only in every cell: subtle shadow, no full beard, no heavy mustache."
+    },
+    {
+      "faceShape": "long",
+      "beardState": "short_beard",
+      "sheet": "contact-sheets/front/long-short_beard.png",
+      "outputs": [
+        "public/assets/haircuts/long/short_beard/low-taper.png",
+        "public/assets/haircuts/long/short_beard/textured-crop.png",
+        "public/assets/haircuts/long/short_beard/french-crop.png",
+        "public/assets/haircuts/long/short_beard/crew-cut.png",
+        "public/assets/haircuts/long/short_beard/buzz-fade.png",
+        "public/assets/haircuts/long/short_beard/classic-scissor.png",
+        "public/assets/haircuts/long/short_beard/modern-side-part.png",
+        "public/assets/haircuts/long/short_beard/ivy-league.png",
+        "public/assets/haircuts/long/short_beard/messy-fringe.png",
+        "public/assets/haircuts/long/short_beard/short-quiff.png",
+        "public/assets/haircuts/long/short_beard/soft-flow.png",
+        "public/assets/haircuts/long/short_beard/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, long / oblong face shape, narrower cheeks, longer vertical proportions, short neat beard, tidy grooming, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly long or oblong: narrower cheeks and longer vertical proportions without looking older.\nUse the same short neat beard in every cell: tidy grooming, controlled cheek and neck lines."
+    },
+    {
+      "faceShape": "long",
+      "beardState": "full_beard",
+      "sheet": "contact-sheets/front/long-full_beard.png",
+      "outputs": [
+        "public/assets/haircuts/long/full_beard/low-taper.png",
+        "public/assets/haircuts/long/full_beard/textured-crop.png",
+        "public/assets/haircuts/long/full_beard/french-crop.png",
+        "public/assets/haircuts/long/full_beard/crew-cut.png",
+        "public/assets/haircuts/long/full_beard/buzz-fade.png",
+        "public/assets/haircuts/long/full_beard/classic-scissor.png",
+        "public/assets/haircuts/long/full_beard/modern-side-part.png",
+        "public/assets/haircuts/long/full_beard/ivy-league.png",
+        "public/assets/haircuts/long/full_beard/messy-fringe.png",
+        "public/assets/haircuts/long/full_beard/short-quiff.png",
+        "public/assets/haircuts/long/full_beard/soft-flow.png",
+        "public/assets/haircuts/long/full_beard/curtains.png"
+      ],
+      "prompt": "Create a 4x3 contact sheet of the same fictional young Eastern European man, age 22-27, light skin, long / oblong face shape, narrower cheeks, longer vertical proportions, full groomed beard, neat shape, not oversized, not very long, consistent face identity, same neutral expression, same chest-up barber portrait framing, same gray studio/barbershop backdrop, same lighting and camera angle in every cell. Each cell shows a different men's haircut while preserving the same person identity and the same face shape and facial hair state.\n\nHairstyles in reading order, left to right, top to bottom:\nlow taper, textured crop, french crop, crew cut, buzz fade, classic scissor cut, modern side part, ivy league, messy fringe, short quiff, soft flow, curtains middle part.\n\nStyle:\nrealistic grooming reference photos, modern Eastern European barber aesthetic, natural hair texture, neutral grooming presentation.\n\nComposition:\nexact 4 columns by 3 rows grid, equal-size cells, small consistent padding between cells, each portrait centered and uncropped at the head, enough margin around hair.\n\nImportant constraints:\nno text, no labels, no watermark, no logo, no different people, no hats, no glasses, no jewelry, no tattoos, no dramatic fashion styling, no exaggerated editorial posing.\n\nKeep the face visibly long or oblong: narrower cheeks and longer vertical proportions without looking older.\nUse the same full groomed beard in every cell: neat shape, not oversized, not very long."
+    }
+  ]
+}

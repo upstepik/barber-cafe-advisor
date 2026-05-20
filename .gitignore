@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.local.example
+*.log
+.npm-cache/
+cloudflared.exe
+contact-sheets/
+_*.txt
