@@ -1,0 +1,6 @@
+﻿services:
+  - type: web
+    name: voidwear-demo-store
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
