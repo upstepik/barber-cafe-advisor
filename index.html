@@ -132,18 +132,40 @@
       filter: grayscale(1) contrast(1.05);
     }
 
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: .2;
+      background:
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, .12) 0 1px, transparent 1px 9px),
+        linear-gradient(110deg, transparent 0 35%, rgba(255, 255, 255, .34) 48%, transparent 62%);
+      background-size: auto, 220% 100%;
+      mix-blend-mode: screen;
+      animation: heroScan 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
     .hero::after {
       content: "";
       position: absolute;
       inset: 0;
+      z-index: 1;
       background: linear-gradient(180deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .2));
       pointer-events: none;
+    }
+
+    @keyframes heroScan {
+      0%, 18% { background-position: 0 0, 180% 0; opacity: .12; }
+      42% { background-position: 0 0, 0 0; opacity: .28; }
+      100% { background-position: 0 0, -140% 0; opacity: .12; }
     }
 
     .hero-overlay {
       position: absolute;
       inset: 0;
-      z-index: 1;
+      z-index: 2;
       display: grid;
       place-items: center;
       padding: 38px 24px;
@@ -237,7 +259,29 @@
     }
 
     .product {
+      position: relative;
       min-width: 0;
+    }
+
+    .product::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      z-index: 0;
+      opacity: 0;
+      background: radial-gradient(180px circle at var(--mx, 50%) var(--my, 35%), rgba(0, 0, 0, .13), transparent 55%);
+      transition: opacity .22s ease;
+      pointer-events: none;
+    }
+
+    .product:hover::before,
+    .product:focus-within::before {
+      opacity: 1;
+    }
+
+    .product > * {
+      position: relative;
+      z-index: 1;
     }
 
     .product-image {
@@ -247,6 +291,12 @@
       border: 0;
       padding: 0;
       cursor: pointer;
+      transition: transform .22s ease, filter .22s ease;
+    }
+
+    .product:hover .product-image {
+      transform: translateY(-2px);
+      filter: brightness(.98);
     }
 
     .product-image img {
@@ -474,6 +524,31 @@
       padding-left: 18px;
     }
 
+    .drop-marquee {
+      position: relative;
+      overflow: hidden;
+      margin-top: 30px;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+      white-space: nowrap;
+    }
+
+    .drop-marquee span {
+      display: inline-block;
+      padding: 12px 0;
+      color: rgba(255, 255, 255, .82);
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+      animation: marqueeMove 17s linear infinite;
+    }
+
+    @keyframes marqueeMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
     .footer {
       display: flex;
       justify-content: space-between;
@@ -517,33 +592,23 @@
       width: min(690px, 100%);
       max-height: calc(100vh - 52px);
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
+      grid-template-columns: 1.08fr .92fr;
       gap: 24px;
       overflow: auto;
       padding: 28px;
       background: var(--white);
       color: var(--black);
       box-shadow: 0 20px 60px rgba(0, 0, 0, .28);
+      animation: modalRise .22s ease-out;
+    }
+
+    @keyframes modalRise {
+      from { transform: translateY(18px) scale(.985); opacity: .72; }
+      to { transform: translateY(0) scale(1); opacity: 1; }
     }
 
     .modal-gallery {
-      display: grid;
-      grid-template-columns: 46px 1fr;
-      gap: 12px;
-    }
-
-    .thumbs {
-      display: grid;
-      gap: 8px;
-      align-content: start;
-    }
-
-    .thumb {
-      aspect-ratio: 1 / 1.25;
-      border: 1px solid var(--soft);
-      background: var(--paper);
       overflow: hidden;
-      cursor: pointer;
     }
 
     .modal-main {
@@ -552,11 +617,11 @@
       overflow: hidden;
     }
 
-    .modal-main img,
-    .thumb img { object-fit: contain; padding: 5px; }
+    .modal-main img { object-fit: contain; padding: 5px; }
 
     .modal-copy {
       position: relative;
+      padding-right: 52px;
       padding-top: 16px;
     }
 
@@ -564,11 +629,27 @@
       position: absolute;
       right: 0;
       top: 0;
-      border: 0;
-      background: none;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 2px solid var(--black);
+      background: var(--white);
+      color: var(--black);
       cursor: pointer;
-      font-size: 24px;
+      font-size: 30px;
+      font-weight: 900;
       line-height: 1;
+      transition: background .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .close:hover,
+    .close:focus-visible {
+      background: var(--black);
+      color: var(--white);
+      transform: scale(1.04);
+      outline: none;
     }
 
     .modal-copy small {
@@ -616,6 +697,7 @@
       border: 0;
       background: #f1f1f1;
       cursor: pointer;
+      font-weight: 900;
     }
 
     .qty span {
@@ -636,6 +718,7 @@
     .drawer.open { display: flex; }
 
     .cart-panel {
+      position: relative;
       width: min(360px, 92vw);
       min-height: 100%;
       padding: 28px;
@@ -645,6 +728,11 @@
       animation: cartIn .22s ease-out;
     }
 
+    .cart-panel .close {
+      right: 18px;
+      top: 18px;
+    }
+
     @keyframes cartIn {
       from { transform: translateX(24px); opacity: .75; }
       to { transform: translateX(0); opacity: 1; }
@@ -652,6 +740,7 @@
 
     .cart-panel h2 {
       margin: 0 0 22px;
+      padding-right: 48px;
       font-size: 28px;
       font-weight: 900;
       text-transform: uppercase;
@@ -748,6 +837,17 @@
     }
 
     .toast.show { display: block; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+    }
 
     @media (max-width: 640px) {
       body { background: var(--white); }
@@ -1030,6 +1130,9 @@
           <li>Обмін розміру можливий, якщо річ збережена в товарному стані.</li>
           <li>Оплата у цьому демо-сайті не підключена.</li>
         </ul>
+        <div class="drop-marquee" aria-hidden="true">
+          <span>VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / </span>
+        </div>
         <footer class="footer">
           <div class="socials" aria-label="Соціальні мережі">
             <span class="social">F</span>
@@ -1039,7 +1142,7 @@
           </div>
           <div>
             <strong>VOIDWEAR</strong><br>
-            +7 (903) 226-12-10<br>
+            +38 (093) 226-12-10<br>
             Демо-сайт для портфоліо. Оплата не підключена.
           </div>
         </footer>
@@ -1050,7 +1153,6 @@
   <div class="backdrop" data-product-modal aria-hidden="true">
     <article class="modal" role="dialog" aria-modal="true" aria-label="Деталі товару">
       <div class="modal-gallery">
-        <div class="thumbs" data-thumbs></div>
         <div class="modal-main"><img data-modal-img src="assets/ai-product-hoodie.png" alt=""></div>
       </div>
       <div class="modal-copy">
@@ -1064,7 +1166,7 @@
           <span>○ S</span><span>○ M</span><span>○ L</span><span>○ XL</span>
         </div>
         <div class="qty" aria-label="Кількість">
-          <button type="button">−</button><span>1</span><button type="button">+</button>
+          <button type="button" data-qty-dec aria-label="Зменшити кількість">−</button><span data-modal-qty>1</span><button type="button" data-qty-inc aria-label="Збільшити кількість">+</button>
         </div>
         <button class="btn dark" type="button" data-modal-add>Додати в кошик</button>
       </div>
@@ -1105,6 +1207,7 @@
 
     const cart = [];
     let currentProduct = 0;
+    let modalQuantity = 1;
     const fmt = value => '₴' + value;
     const $ = selector => document.querySelector(selector);
     const $$ = selector => Array.from(document.querySelectorAll(selector));
@@ -1125,23 +1228,24 @@
       $('[data-cart-total]').textContent = fmt(total);
     }
 
-    function addToCart(index) {
+    function addToCart(index, qty = 1) {
       const product = products[index];
       const existing = cart.find(item => item.name === product.name);
-      if (existing) existing.qty += 1;
-      else cart.push({ ...product, qty: 1 });
+      if (existing) existing.qty += qty;
+      else cart.push({ ...product, qty });
       updateCart();
     }
 
     function openProduct(index) {
       currentProduct = index;
+      modalQuantity = 1;
       const product = products[index];
       $('[data-modal-title]').textContent = product.modal;
       $('[data-modal-price]').textContent = fmt(product.price);
       $('[data-modal-desc]').textContent = product.desc;
       $('[data-modal-img]').src = product.modalImg;
       $('[data-modal-img]').alt = product.modal;
-      $('[data-thumbs]').innerHTML = [product.modalImg, product.img, 'assets/ai-product-hoodie.png', 'assets/ai-product-tee.png'].map(src => `<button class="thumb" type="button"><img src="${src}" alt=""></button>`).join('');
+      $('[data-modal-qty]').textContent = modalQuantity;
       $('[data-product-modal]').classList.add('open');
       $('[data-product-modal]').setAttribute('aria-hidden', 'false');
     }
@@ -1170,6 +1274,18 @@
       flashCartAdded();
     }
 
+    function addModalSelection() {
+      addToCart(currentProduct, modalQuantity);
+      closeProduct();
+      openCart();
+      flashCartAdded();
+    }
+
+    function setModalQuantity(nextQty) {
+      modalQuantity = Math.max(1, Math.min(9, nextQty));
+      $('[data-modal-qty]').textContent = modalQuantity;
+    }
+
     function closeCart() {
       $('[data-cart-drawer]').classList.remove('open');
       $('[data-cart-drawer]').classList.remove('confirming');
@@ -1179,11 +1295,20 @@
     $$('[data-add]').forEach(btn => btn.addEventListener('click', () => addAndOpenCart(Number(btn.dataset.add))));
     $$('[data-open-product]').forEach(btn => btn.addEventListener('click', () => openProduct(Number(btn.dataset.openProduct))));
     $$('[data-cart-open]').forEach(btn => btn.addEventListener('click', openCart));
+    $$('.product').forEach(card => {
+      card.addEventListener('pointermove', event => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+        card.style.setProperty('--my', `${event.clientY - rect.top}px`);
+      });
+    });
+    $('[data-qty-dec]').addEventListener('click', () => setModalQuantity(modalQuantity - 1));
+    $('[data-qty-inc]').addEventListener('click', () => setModalQuantity(modalQuantity + 1));
     $('[data-close-product]').addEventListener('click', closeProduct);
     $('[data-cart-close]').addEventListener('click', closeCart);
     $('[data-product-modal]').addEventListener('click', event => { if (event.target === event.currentTarget) closeProduct(); });
     $('[data-cart-drawer]').addEventListener('click', event => { if (event.target === event.currentTarget) closeCart(); });
-    $('[data-modal-add]').addEventListener('click', () => { closeProduct(); addAndOpenCart(currentProduct); });
+    $('[data-modal-add]').addEventListener('click', addModalSelection);
     $('[data-order]').addEventListener('click', () => {
       closeCart();
       const toast = $('[data-toast]');
