@@ -18,7 +18,10 @@
 
     * { box-sizing: border-box; }
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
 
     body {
       margin: 0;
@@ -28,6 +31,7 @@
       font-size: 14px;
       line-height: 1.35;
       letter-spacing: 0;
+      overflow-x: hidden;
     }
 
     button,
@@ -71,7 +75,7 @@
     .logo {
       font-size: 17px;
       font-weight: 900;
-      letter-spacing: -.02em;
+      letter-spacing: 0;
     }
 
     .nav {
@@ -112,13 +116,93 @@
     }
 
     .hero {
+      position: relative;
+      min-height: 430px;
       border-bottom: 1px solid var(--soft);
       background: #cfcfcf;
+      overflow: hidden;
     }
 
     .hero img {
-      aspect-ratio: 768 / 438;
+      width: 100%;
+      height: 100%;
+      min-height: 430px;
+      object-fit: cover;
       object-position: center;
+      filter: grayscale(1) contrast(1.05);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .2));
+      pointer-events: none;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      padding: 38px 24px;
+      color: var(--white);
+      text-align: center;
+    }
+
+    .hero-copy {
+      display: grid;
+      justify-items: center;
+      width: min(100%, 700px);
+      max-width: 700px;
+    }
+
+    .hero-copy h1 {
+      margin: 0;
+      font-size: clamp(38px, 8vw, 70px);
+      line-height: .95;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, .45);
+    }
+
+    .hero-copy p {
+      max-width: 520px;
+      margin: 12px 0 18px;
+      font-size: 13px;
+      font-weight: 700;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, .5);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-action {
+      display: inline-flex;
+      min-width: 140px;
+      min-height: 36px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--white);
+      background: var(--white);
+      color: var(--black);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .hero-action.dark {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
     }
 
     .section {
@@ -134,10 +218,11 @@
       font-size: 25px;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: -.02em;
+      letter-spacing: 0;
     }
 
     .section-copy {
+      width: 100%;
       max-width: 430px;
       margin: 0 auto 34px;
       color: #333;
@@ -557,6 +642,12 @@
       background: var(--white);
       color: var(--black);
       box-shadow: -18px 0 45px rgba(0, 0, 0, .25);
+      animation: cartIn .22s ease-out;
+    }
+
+    @keyframes cartIn {
+      from { transform: translateX(24px); opacity: .75; }
+      to { transform: translateX(0); opacity: 1; }
     }
 
     .cart-panel h2 {
@@ -604,6 +695,42 @@
       min-height: 42px;
     }
 
+    .cart-added {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      padding-right: min(360px, 92vw);
+      color: var(--white);
+      text-align: center;
+      pointer-events: none;
+    }
+
+    .drawer.confirming .cart-added {
+      display: grid;
+    }
+
+    .cart-added-mark {
+      display: grid;
+      place-items: center;
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 8px;
+      border-radius: 999px;
+      background: var(--white);
+      color: var(--black);
+      font-size: 34px;
+      font-weight: 900;
+    }
+
+    .cart-added strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 900;
+      text-transform: uppercase;
+      text-shadow: 0 1px 8px rgba(0, 0, 0, .5);
+    }
+
     .toast {
       position: fixed;
       left: 50%;
@@ -639,8 +766,26 @@
         gap: 12px 18px;
       }
 
+      .hero,
       .hero img {
-        aspect-ratio: 286 / 165;
+        min-height: 330px;
+      }
+
+      .hero img {
+        object-position: 47% center;
+      }
+
+      .hero-copy h1 {
+        max-width: 340px;
+        font-size: 38px;
+      }
+
+      .hero-copy p {
+        max-width: 310px;
+      }
+
+      .hero-action {
+        min-width: 128px;
       }
 
       .section {
@@ -649,6 +794,10 @@
 
       .section-title {
         font-size: 22px;
+      }
+
+      .section-copy {
+        max-width: 320px;
       }
 
       .catalog-grid {
@@ -663,7 +812,7 @@
 
       .product {
         width: 100%;
-        max-width: 320px;
+        max-width: 300px;
         margin: 0 auto;
       }
 
@@ -716,6 +865,20 @@
         padding: 18px;
         gap: 18px;
       }
+
+      .drawer {
+        justify-content: center;
+      }
+
+      .cart-panel {
+        width: min(360px, 100vw);
+        padding: 24px;
+      }
+
+      .cart-added {
+        align-items: end;
+        padding: 0 0 56px;
+      }
     }
 
     @media (max-width: 380px) {
@@ -738,7 +901,17 @@
 
     <main id="top">
       <section class="hero" aria-label="VOIDWEAR DROP 01">
-        <img src="assets/stitch-hero.jpg" alt="VOIDWEAR DROP 01: моделі в чорному streetwear на бетонному фоні">
+        <img src="assets/ai-hero.png" alt="VOIDWEAR DROP 01: моделі в чорному streetwear на бетонному фоні">
+        <div class="hero-overlay">
+          <div class="hero-copy">
+            <h1>VOIDWEAR DROP 01</h1>
+            <p>Обмежена колекція для тих, хто створює власний стиль.</p>
+            <div class="hero-actions">
+              <a class="hero-action" href="#catalog">Дивитись колекцію</a>
+              <button class="hero-action dark" type="button" data-open-product="0">Магазин</button>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section id="catalog" class="section">
@@ -746,32 +919,32 @@
         <p class="section-copy">Наша перша колекція, натхненна вуличним та авангардним. Мінімалізм, комфорт та виразність.</p>
         <div class="catalog-grid">
           <article class="product" data-product="0">
-            <button class="product-image" type="button" data-open-product="0"><img src="assets/stitch-product-hoodie.jpg" alt="Худі Oversize Black"></button>
+            <button class="product-image" type="button" data-open-product="0"><img src="assets/ai-product-hoodie.png" alt="Худі Oversize Black"></button>
             <div class="product-meta"><span class="product-name">Худі Oversize Black</span><span class="price">₴2300</span></div>
             <button class="btn" type="button" data-add="0">Додати в кошик</button>
           </article>
           <article class="product" data-product="1">
-            <button class="product-image" type="button" data-open-product="1"><img src="assets/stitch-product-tee.jpg" alt="Футболка Graphite Logo"></button>
+            <button class="product-image" type="button" data-open-product="1"><img src="assets/ai-product-tee.png" alt="Футболка Graphite Logo"></button>
             <div class="product-meta"><span class="product-name">Футболка Graphite Logo</span><span class="price">₴1500</span></div>
             <button class="btn" type="button" data-add="1">Додати в кошик</button>
           </article>
           <article class="product" data-product="2">
-            <button class="product-image" type="button" data-open-product="2"><img src="assets/stitch-product-cargo.jpg" alt="Штани Cargo Void"></button>
+            <button class="product-image" type="button" data-open-product="2"><img src="assets/ai-product-cargo.png" alt="Штани Cargo Void"></button>
             <div class="product-meta"><span class="product-name">Штани Cargo Void</span><span class="price">₴2800</span></div>
             <button class="btn" type="button" data-add="2">Додати в кошик</button>
           </article>
           <article class="product" data-product="3">
-            <button class="product-image" type="button" data-open-product="3"><img src="assets/stitch-product-beanie.jpg" alt="Шапка Ribbed Beanie"></button>
+            <button class="product-image" type="button" data-open-product="3"><img src="assets/ai-product-beanie.png" alt="Шапка Ribbed Beanie"></button>
             <div class="product-meta"><span class="product-name">Шапка Ribbed Beanie</span><span class="price">₴850</span></div>
             <button class="btn" type="button" data-add="3">Додати в кошик</button>
           </article>
           <article class="product" data-product="4">
-            <button class="product-image" type="button" data-open-product="4"><img src="assets/stitch-product-bag.jpg" alt="Сумка Crossbody Tech"></button>
+            <button class="product-image" type="button" data-open-product="4"><img src="assets/ai-product-bag.png" alt="Сумка Crossbody Tech"></button>
             <div class="product-meta"><span class="product-name">Сумка Crossbody Tech</span><span class="price">₴1850</span></div>
             <button class="btn" type="button" data-add="4">Додати в кошик</button>
           </article>
           <article class="product" data-product="5">
-            <button class="product-image" type="button" data-open-product="5"><img src="assets/stitch-product-puffer.jpg" alt="Куртка Puffer Cropped"></button>
+            <button class="product-image" type="button" data-open-product="5"><img src="assets/ai-product-puffer.png" alt="Куртка Puffer Cropped"></button>
             <div class="product-meta"><span class="product-name">Куртка Puffer Cropped</span><span class="price">₴4500</span></div>
             <button class="btn" type="button" data-add="5">Додати в кошик</button>
           </article>
@@ -779,7 +952,7 @@
       </section>
 
       <section class="editorial-band">
-        <img src="assets/stitch-editorial.jpg" alt="Лукбук VOIDWEAR">
+        <img src="assets/ai-editorial.png" alt="Лукбук VOIDWEAR">
         <div class="editorial-content">
           <h2>In the right outfit anything is possible</h2>
           <button class="btn dark" type="button" data-open-product="0">Дивитись худі</button>
@@ -798,7 +971,7 @@
           <p>Ми — VOIDWEAR, український мікро-бренд streetwear, що створює одяг для сміливих та вільних духом. Наша місія — дати вам можливість виразити себе через стиль, який не має кордонів. Одяг, що надихає та підкреслює вашу індивідуальність.</p>
         </div>
         <div class="about-photo">
-          <img src="assets/stitch-about.jpg" alt="Команда VOIDWEAR у міському streetwear">
+          <img src="assets/ai-about.png" alt="Команда VOIDWEAR у міському streetwear">
         </div>
       </section>
 
@@ -878,7 +1051,7 @@
     <article class="modal" role="dialog" aria-modal="true" aria-label="Деталі товару">
       <div class="modal-gallery">
         <div class="thumbs" data-thumbs></div>
-        <div class="modal-main"><img data-modal-img src="assets/stitch-modal-main.jpg" alt=""></div>
+        <div class="modal-main"><img data-modal-img src="assets/ai-product-hoodie.png" alt=""></div>
       </div>
       <div class="modal-copy">
         <button class="close" type="button" data-close-product aria-label="Закрити">×</button>
@@ -910,18 +1083,24 @@
       <input aria-label="Відділення Нової Пошти" placeholder="Відділення Нової Пошти">
       <button class="btn dark" type="button" data-order>Підтвердити замовлення</button>
     </div>
+    <div class="cart-added" data-cart-added aria-hidden="true">
+      <div>
+        <span class="cart-added-mark">✓</span>
+        <strong>Додано в кошик</strong>
+      </div>
+    </div>
   </aside>
 
   <div class="toast" data-toast>Дякуємо! Ми зв'яжемося з вами.</div>
 
   <script>
     const products = [
-      { name: 'Худі Oversize Black', modal: 'Чорне худі оверсайз', price: 2300, img: 'assets/stitch-product-hoodie.jpg', modalImg: 'assets/stitch-modal-main.jpg', desc: "Високоякісне базове худі оверсайз крою. М'який, дихаючий матеріал, ідеальний для прохолодної погоди та стильного образу." },
-      { name: 'Футболка Graphite Logo', modal: 'Футболка Graphite Logo', price: 1500, img: 'assets/stitch-product-tee.jpg', modalImg: 'assets/stitch-product-tee.jpg', desc: 'Щільна графітова футболка з мінімальним логотипом. Працює як база під куртку або самостійний акцент.' },
-      { name: 'Штани Cargo Void', modal: 'Штани Cargo Void', price: 2800, img: 'assets/stitch-product-cargo.jpg', modalImg: 'assets/stitch-product-cargo.jpg', desc: 'Прямий cargo-силует з функціональними кишенями та щільною тканиною для щоденного міського ритму.' },
-      { name: 'Шапка Ribbed Beanie', modal: 'Шапка Ribbed Beanie', price: 850, img: 'assets/stitch-product-beanie.jpg', modalImg: 'assets/stitch-product-beanie.jpg', desc: 'Ребриста чорна шапка без зайвого брендингу. Тепла, лаконічна, підходить до всього DROP 01.' },
-      { name: 'Сумка Crossbody Tech', modal: 'Сумка Crossbody Tech', price: 1850, img: 'assets/stitch-product-bag.jpg', modalImg: 'assets/stitch-product-bag.jpg', desc: 'Компактна crossbody-сумка для телефону, ключів та щоденних речей. Технічний акцент у комплекті.' },
-      { name: 'Куртка Puffer Cropped', modal: 'Куртка Puffer Cropped', price: 4500, img: 'assets/stitch-product-puffer.jpg', modalImg: 'assets/stitch-product-puffer.jpg', desc: 'Коротка puffer-куртка з обʼємною формою. Чорний верхній шар для холодного сезону.' }
+      { name: 'Худі Oversize Black', modal: 'Чорне худі оверсайз', price: 2300, img: 'assets/ai-product-hoodie.png', modalImg: 'assets/ai-product-hoodie.png', desc: "Високоякісне базове худі оверсайз крою. М'який, дихаючий матеріал, ідеальний для прохолодної погоди та стильного образу." },
+      { name: 'Футболка Graphite Logo', modal: 'Футболка Graphite Logo', price: 1500, img: 'assets/ai-product-tee.png', modalImg: 'assets/ai-product-tee.png', desc: 'Щільна графітова футболка з мінімальним логотипом. Працює як база під куртку або самостійний акцент.' },
+      { name: 'Штани Cargo Void', modal: 'Штани Cargo Void', price: 2800, img: 'assets/ai-product-cargo.png', modalImg: 'assets/ai-product-cargo.png', desc: 'Прямий cargo-силует з функціональними кишенями та щільною тканиною для щоденного міського ритму.' },
+      { name: 'Шапка Ribbed Beanie', modal: 'Шапка Ribbed Beanie', price: 850, img: 'assets/ai-product-beanie.png', modalImg: 'assets/ai-product-beanie.png', desc: 'Ребриста чорна шапка без зайвого брендингу. Тепла, лаконічна, підходить до всього DROP 01.' },
+      { name: 'Сумка Crossbody Tech', modal: 'Сумка Crossbody Tech', price: 1850, img: 'assets/ai-product-bag.png', modalImg: 'assets/ai-product-bag.png', desc: 'Компактна crossbody-сумка для телефону, ключів та щоденних речей. Технічний акцент у комплекті.' },
+      { name: 'Куртка Puffer Cropped', modal: 'Куртка Puffer Cropped', price: 4500, img: 'assets/ai-product-puffer.png', modalImg: 'assets/ai-product-puffer.png', desc: 'Коротка puffer-куртка з обʼємною формою. Чорний верхній шар для холодного сезону.' }
     ];
 
     const cart = [];
@@ -962,7 +1141,7 @@
       $('[data-modal-desc]').textContent = product.desc;
       $('[data-modal-img]').src = product.modalImg;
       $('[data-modal-img]').alt = product.modal;
-      $('[data-thumbs]').innerHTML = [product.modalImg, product.img, 'assets/stitch-product-hoodie.jpg', 'assets/stitch-product-tee.jpg'].map(src => `<button class="thumb" type="button"><img src="${src}" alt=""></button>`).join('');
+      $('[data-thumbs]').innerHTML = [product.modalImg, product.img, 'assets/ai-product-hoodie.png', 'assets/ai-product-tee.png'].map(src => `<button class="thumb" type="button"><img src="${src}" alt=""></button>`).join('');
       $('[data-product-modal]').classList.add('open');
       $('[data-product-modal]').setAttribute('aria-hidden', 'false');
     }
@@ -978,19 +1157,33 @@
       $('[data-cart-drawer]').setAttribute('aria-hidden', 'false');
     }
 
+    function flashCartAdded() {
+      const drawer = $('[data-cart-drawer]');
+      drawer.classList.add('confirming');
+      window.clearTimeout(drawer.confirmTimer);
+      drawer.confirmTimer = window.setTimeout(() => drawer.classList.remove('confirming'), 1300);
+    }
+
+    function addAndOpenCart(index) {
+      addToCart(index);
+      openCart();
+      flashCartAdded();
+    }
+
     function closeCart() {
       $('[data-cart-drawer]').classList.remove('open');
+      $('[data-cart-drawer]').classList.remove('confirming');
       $('[data-cart-drawer]').setAttribute('aria-hidden', 'true');
     }
 
-    $$('[data-add]').forEach(btn => btn.addEventListener('click', () => addToCart(Number(btn.dataset.add))));
+    $$('[data-add]').forEach(btn => btn.addEventListener('click', () => addAndOpenCart(Number(btn.dataset.add))));
     $$('[data-open-product]').forEach(btn => btn.addEventListener('click', () => openProduct(Number(btn.dataset.openProduct))));
     $$('[data-cart-open]').forEach(btn => btn.addEventListener('click', openCart));
     $('[data-close-product]').addEventListener('click', closeProduct);
     $('[data-cart-close]').addEventListener('click', closeCart);
     $('[data-product-modal]').addEventListener('click', event => { if (event.target === event.currentTarget) closeProduct(); });
     $('[data-cart-drawer]').addEventListener('click', event => { if (event.target === event.currentTarget) closeCart(); });
-    $('[data-modal-add]').addEventListener('click', () => { addToCart(currentProduct); closeProduct(); openCart(); });
+    $('[data-modal-add]').addEventListener('click', () => { closeProduct(); addAndOpenCart(currentProduct); });
     $('[data-order]').addEventListener('click', () => {
       closeCart();
       const toast = $('[data-toast]');
