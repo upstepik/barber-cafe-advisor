@@ -652,13 +652,19 @@
       }
 
       .catalog-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 24px 12px;
+        grid-template-columns: 1fr;
+        gap: 26px;
       }
 
       .product-name,
       .price {
         font-size: 10px;
+      }
+
+      .product {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
       }
 
       .product-meta {
@@ -713,7 +719,6 @@
     }
 
     @media (max-width: 380px) {
-      .catalog-grid { grid-template-columns: 1fr; }
       .product-image { aspect-ratio: 1 / .95; }
     }
   </style>
