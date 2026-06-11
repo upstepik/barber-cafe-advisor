@@ -137,13 +137,14 @@
       position: absolute;
       inset: 0;
       z-index: 1;
-      opacity: .2;
+      opacity: .38;
       background:
-        repeating-linear-gradient(90deg, rgba(255, 255, 255, .12) 0 1px, transparent 1px 9px),
-        linear-gradient(110deg, transparent 0 35%, rgba(255, 255, 255, .34) 48%, transparent 62%);
-      background-size: auto, 220% 100%;
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, .22) 0 1px, transparent 1px 10px),
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, .22) 0 1px, transparent 1px 6px),
+        linear-gradient(110deg, transparent 0 34%, rgba(255, 255, 255, .58) 48%, transparent 62%);
+      background-size: auto, auto, 220% 100%;
       mix-blend-mode: screen;
-      animation: heroScan 8s ease-in-out infinite;
+      animation: heroScan 5.6s ease-in-out infinite;
       pointer-events: none;
     }
 
@@ -157,9 +158,67 @@
     }
 
     @keyframes heroScan {
-      0%, 18% { background-position: 0 0, 180% 0; opacity: .12; }
-      42% { background-position: 0 0, 0 0; opacity: .28; }
-      100% { background-position: 0 0, -140% 0; opacity: .12; }
+      0%, 12% { background-position: 0 0, 0 0, 180% 0; opacity: .18; }
+      40% { background-position: 22px 0, 0 18px, 0 0; opacity: .46; }
+      100% { background-position: 48px 0, 0 42px, -140% 0; opacity: .18; }
+    }
+
+    .hero-rail,
+    .hero-code {
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 3;
+      overflow: hidden;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .hero-rail {
+      top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, .32);
+      border-bottom: 1px solid rgba(255, 255, 255, .32);
+      background: rgba(0, 0, 0, .24);
+      mix-blend-mode: screen;
+    }
+
+    .hero-rail.bottom { top: auto; bottom: 18px; }
+
+    .hero-rail span,
+    .hero-code span {
+      display: inline-block;
+      color: rgba(255, 255, 255, .9);
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .hero-rail span {
+      padding: 9px 0;
+      animation: railMove 14s linear infinite;
+    }
+
+    .hero-rail.bottom span {
+      animation-direction: reverse;
+      animation-duration: 18s;
+    }
+
+    .hero-code {
+      top: 64px;
+      opacity: .85;
+    }
+
+    .hero-code span {
+      padding-left: 100%;
+      color: rgba(255, 255, 255, .58);
+      font-size: 9px;
+      animation: railMove 22s linear infinite;
+    }
+
+    @keyframes railMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
     }
 
     .hero-overlay {
@@ -181,6 +240,7 @@
     }
 
     .hero-copy h1 {
+      position: relative;
       margin: 0;
       font-size: clamp(38px, 8vw, 70px);
       line-height: .95;
@@ -188,6 +248,32 @@
       letter-spacing: 0;
       text-transform: uppercase;
       text-shadow: 0 2px 12px rgba(0, 0, 0, .45);
+      animation: heroTitlePulse 3.4s ease-in-out infinite;
+    }
+
+    .hero-copy h1::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255, 255, 255, .55);
+      text-stroke: 1px rgba(255, 255, 255, .55);
+      opacity: .58;
+      transform: translate(3px, -2px);
+      clip-path: inset(0 0 58% 0);
+      animation: titleGlitch 2.8s steps(2, end) infinite;
+      pointer-events: none;
+    }
+
+    @keyframes heroTitlePulse {
+      0%, 100% { filter: contrast(1); transform: translateY(0); }
+      50% { filter: contrast(1.22); transform: translateY(-2px); }
+    }
+
+    @keyframes titleGlitch {
+      0%, 78%, 100% { transform: translate(3px, -2px); clip-path: inset(0 0 58% 0); opacity: .3; }
+      82% { transform: translate(-5px, 2px); clip-path: inset(42% 0 0 0); opacity: .78; }
+      86% { transform: translate(6px, -1px); clip-path: inset(12% 0 42% 0); opacity: .62; }
     }
 
     .hero-copy p {
@@ -207,6 +293,7 @@
     }
 
     .hero-action {
+      position: relative;
       display: inline-flex;
       min-width: 140px;
       min-height: 36px;
@@ -219,6 +306,31 @@
       font-weight: 900;
       text-transform: uppercase;
       text-decoration: none;
+      overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+
+    .hero-action::after,
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: -40% -80%;
+      background: linear-gradient(110deg, transparent 35%, rgba(255, 255, 255, .72) 48%, transparent 62%);
+      transform: translateX(-70%);
+      animation: buttonShine 3.8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .hero-action:hover,
+    .hero-action:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 0 rgba(0, 0, 0, .4);
+      outline: none;
+    }
+
+    @keyframes buttonShine {
+      0%, 42% { transform: translateX(-75%); }
+      62%, 100% { transform: translateX(75%); }
     }
 
     .hero-action.dark {
@@ -241,6 +353,13 @@
       font-weight: 900;
       text-transform: uppercase;
       letter-spacing: 0;
+      animation: sectionSignal 3.6s steps(2, end) infinite;
+    }
+
+    @keyframes sectionSignal {
+      0%, 82%, 100% { text-shadow: none; transform: translateX(0); }
+      86% { text-shadow: 3px 0 #d6d6d6, -3px 0 #000; transform: translateX(-1px); }
+      90% { text-shadow: -2px 0 #d6d6d6, 2px 0 #000; transform: translateX(1px); }
     }
 
     .section-copy {
@@ -261,6 +380,18 @@
     .product {
       position: relative;
       min-width: 0;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product.is-visible {
+      animation: productReveal .48s cubic-bezier(.2, .85, .18, 1) forwards;
+      animation-delay: var(--stagger, 0ms);
+    }
+
+    @keyframes productReveal {
+      from { transform: translateY(24px) scale(.985); }
+      to { transform: translateY(0) scale(1); }
     }
 
     .product::before {
@@ -285,6 +416,7 @@
     }
 
     .product-image {
+      position: relative;
       aspect-ratio: 1 / 1.06;
       background: var(--paper);
       overflow: hidden;
@@ -292,11 +424,67 @@
       padding: 0;
       cursor: pointer;
       transition: transform .22s ease, filter .22s ease;
+      animation: productFloat 5.8s ease-in-out infinite;
+      animation-delay: var(--float-delay, 0s);
+    }
+
+    .product-image::before,
+    .product-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .product-image::before {
+      opacity: .65;
+      background: linear-gradient(115deg, transparent 0 38%, rgba(255, 255, 255, .72) 48%, transparent 60%);
+      transform: translateX(-120%);
+      animation: productSweep 6s ease-in-out infinite;
+      animation-delay: var(--float-delay, 0s);
+    }
+
+    .product-image::after {
+      content: "QUICK VIEW";
+      inset: auto 0 0;
+      display: grid;
+      place-items: center;
+      height: 34px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 10px;
+      font-weight: 900;
+      transform: translateY(100%);
+      transition: transform .2s ease;
+    }
+
+    .product:hover .product-image::after,
+    .product:focus-within .product-image::after {
+      transform: translateY(0);
     }
 
     .product:hover .product-image {
-      transform: translateY(-2px);
+      transform: translateY(-6px) scale(1.015);
       filter: brightness(.98);
+    }
+
+    .product:nth-child(1) { --stagger: 0ms; --float-delay: 0s; }
+    .product:nth-child(2) { --stagger: 90ms; --float-delay: -.7s; }
+    .product:nth-child(3) { --stagger: 180ms; --float-delay: -1.4s; }
+    .product:nth-child(4) { --stagger: 270ms; --float-delay: -2.1s; }
+    .product:nth-child(5) { --stagger: 360ms; --float-delay: -2.8s; }
+    .product:nth-child(6) { --stagger: 450ms; --float-delay: -3.5s; }
+
+    @keyframes productFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes productSweep {
+      0%, 36% { transform: translateX(-120%); opacity: 0; }
+      46% { opacity: .75; }
+      62%, 100% { transform: translateX(120%); opacity: 0; }
     }
 
     .product-image img {
@@ -327,6 +515,7 @@
     }
 
     .btn {
+      position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -339,12 +528,16 @@
       font-weight: 900;
       text-transform: uppercase;
       cursor: pointer;
+      overflow: hidden;
+      transition: transform .18s ease, background .18s ease, color .18s ease, box-shadow .18s ease;
     }
 
     .btn:hover,
     .btn:focus-visible {
       background: var(--black);
       color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 0 rgba(0, 0, 0, .14);
       outline: none;
     }
 
@@ -535,13 +728,14 @@
 
     .drop-marquee span {
       display: inline-block;
-      padding: 12px 0;
-      color: rgba(255, 255, 255, .82);
-      font-size: 24px;
+      padding: 14px 0;
+      color: rgba(255, 255, 255, .94);
+      font-size: clamp(26px, 8vw, 54px);
       font-weight: 900;
       line-height: 1;
       text-transform: uppercase;
-      animation: marqueeMove 17s linear infinite;
+      text-shadow: 0 0 18px rgba(255, 255, 255, .18);
+      animation: marqueeMove 9s linear infinite;
     }
 
     @keyframes marqueeMove {
@@ -1002,9 +1196,18 @@
     <main id="top">
       <section class="hero" aria-label="VOIDWEAR DROP 01">
         <img src="assets/ai-hero.png" alt="VOIDWEAR DROP 01: моделі в чорному streetwear на бетонному фоні">
+        <div class="hero-rail" aria-hidden="true">
+          <span>VOIDWEAR DROP 01 / LIMITED STOCK / CONCRETE UNIFORM / KYIV STREETWEAR / VOIDWEAR DROP 01 / LIMITED STOCK / CONCRETE UNIFORM / KYIV STREETWEAR / </span>
+        </div>
+        <div class="hero-code" aria-hidden="true">
+          <span>OVERSIZE.BLACK // GRAPHITE.LOGO // CARGO.VOID // RIBBED.BEANIE // CROSSBODY.TECH // PUFFER.CROPPED //</span>
+        </div>
+        <div class="hero-rail bottom" aria-hidden="true">
+          <span>SHOP THE DROP / TAP PRODUCT / ADD TO CART / NO PAYMENT IN DEMO / SHOP THE DROP / TAP PRODUCT / ADD TO CART / NO PAYMENT IN DEMO / </span>
+        </div>
         <div class="hero-overlay">
           <div class="hero-copy">
-            <h1>VOIDWEAR DROP 01</h1>
+            <h1 data-text="VOIDWEAR DROP 01">VOIDWEAR DROP 01</h1>
             <p>Обмежена колекція для тих, хто створює власний стиль.</p>
             <div class="hero-actions">
               <a class="hero-action" href="#catalog">Дивитись колекцію</a>
@@ -1302,6 +1505,19 @@
         card.style.setProperty('--my', `${event.clientY - rect.top}px`);
       });
     });
+    const revealProducts = entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    };
+    if ('IntersectionObserver' in window) {
+      const productObserver = new IntersectionObserver(revealProducts, { threshold: 0.18 });
+      $$('.product').forEach(card => productObserver.observe(card));
+    } else {
+      $$('.product').forEach(card => card.classList.add('is-visible'));
+    }
     $('[data-qty-dec]').addEventListener('click', () => setModalQuantity(modalQuantity - 1));
     $('[data-qty-inc]').addEventListener('click', () => setModalQuantity(modalQuantity + 1));
     $('[data-close-product]').addEventListener('click', closeProduct);
