@@ -945,10 +945,34 @@
     .size-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 8px;
       margin: 9px 0 16px;
-      color: #555;
       font-size: 12px;
+    }
+
+    .size-option {
+      min-width: 42px;
+      height: 34px;
+      border: 1px solid var(--line);
+      background: var(--white);
+      color: var(--black);
+      cursor: pointer;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: background .16s ease, color .16s ease, transform .16s ease;
+    }
+
+    .size-option:hover,
+    .size-option:focus-visible {
+      transform: translateY(-1px);
+      background: #ececec;
+      outline: 0;
+    }
+
+    .size-option.is-active,
+    .size-option[aria-pressed="true"] {
+      background: var(--black);
+      color: var(--white);
     }
 
     .qty {
@@ -1439,8 +1463,11 @@
         <strong data-modal-price>1890 грн</strong>
         <p data-modal-desc>Високоякісне базове худі оверсайз крою. М'який, дихаючий матеріал, ідеальний для прохолодної погоди та стильного образу. Зручний капюшон та кишені.</p>
         <label>Оберіть розмір</label>
-        <div class="size-row">
-          <span>○ S</span><span>○ M</span><span>○ L</span><span>○ XL</span>
+        <div class="size-row" role="group" aria-label="Оберіть розмір">
+          <button class="size-option" type="button" data-size-option="S" aria-pressed="false">S</button>
+          <button class="size-option is-active" type="button" data-size-option="M" aria-pressed="true">M</button>
+          <button class="size-option" type="button" data-size-option="L" aria-pressed="false">L</button>
+          <button class="size-option" type="button" data-size-option="XL" aria-pressed="false">XL</button>
         </div>
         <div class="qty" aria-label="Кількість">
           <button type="button" data-qty-dec aria-label="Зменшити кількість">−</button><span data-modal-qty>1</span><button type="button" data-qty-inc aria-label="Збільшити кількість">+</button>
@@ -1485,6 +1512,7 @@
     const cart = [];
     let currentProduct = 0;
     let modalQuantity = 1;
+    let modalSize = 'M';
     const fmt = value => '₴' + value;
     const $ = selector => document.querySelector(selector);
     const $$ = selector => Array.from(document.querySelectorAll(selector));
@@ -1499,23 +1527,33 @@
         total += item.price * item.qty;
         const el = document.createElement('div');
         el.className = 'cart-item';
-        el.innerHTML = `<img src="${item.img}" alt=""><div><strong>${item.name}</strong><br>Size: M<br>Qty: ${item.qty}</div><span>${fmt(item.price * item.qty)}</span>`;
+        el.innerHTML = `<img src="${item.img}" alt=""><div><strong>${item.name}</strong><br>Size: ${item.size}<br>Qty: ${item.qty}</div><span>${fmt(item.price * item.qty)}</span>`;
         items.appendChild(el);
       });
       $('[data-cart-total]').textContent = fmt(total);
     }
 
-    function addToCart(index, qty = 1) {
+    function addToCart(index, qty = 1, size = 'M') {
       const product = products[index];
-      const existing = cart.find(item => item.name === product.name);
+      const existing = cart.find(item => item.name === product.name && item.size === size);
       if (existing) existing.qty += qty;
-      else cart.push({ ...product, qty });
+      else cart.push({ ...product, qty, size });
       updateCart();
+    }
+
+    function setModalSize(size) {
+      modalSize = size;
+      $$('[data-size-option]').forEach(option => {
+        const active = option.dataset.sizeOption === modalSize;
+        option.classList.toggle('is-active', active);
+        option.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
     }
 
     function openProduct(index) {
       currentProduct = index;
       modalQuantity = 1;
+      setModalSize('M');
       const product = products[index];
       $('[data-modal-title]').textContent = product.modal;
       $('[data-modal-price]').textContent = fmt(product.price);
@@ -1552,7 +1590,7 @@
     }
 
     function addModalSelection() {
-      addToCart(currentProduct, modalQuantity);
+      addToCart(currentProduct, modalQuantity, modalSize);
       closeProduct();
       openCart();
       flashCartAdded();
@@ -1594,6 +1632,7 @@
     }
     $('[data-qty-dec]').addEventListener('click', () => setModalQuantity(modalQuantity - 1));
     $('[data-qty-inc]').addEventListener('click', () => setModalQuantity(modalQuantity + 1));
+    $$('[data-size-option]').forEach(btn => btn.addEventListener('click', () => setModalSize(btn.dataset.sizeOption)));
     $('[data-close-product]').addEventListener('click', closeProduct);
     $('[data-cart-close]').addEventListener('click', closeCart);
     $('[data-product-modal]').addEventListener('click', event => { if (event.target === event.currentTarget) closeProduct(); });
