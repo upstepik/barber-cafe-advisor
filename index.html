@@ -73,9 +73,12 @@
     }
 
     .logo {
+      position: relative;
       font-size: 17px;
       font-weight: 900;
       letter-spacing: 0;
+      cursor: pointer;
+      transition: color .18s ease, transform .18s ease;
     }
 
     .nav {
@@ -85,6 +88,77 @@
       font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
+    }
+
+    .nav a,
+    .cart-link {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .nav a {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 2px 0;
+      overflow: hidden;
+      transition: color .18s ease, transform .18s ease;
+    }
+
+    .nav a::before,
+    .cart-link::before,
+    .logo::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: currentColor;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .18s ease;
+    }
+
+    .nav a::after {
+      content: attr(data-hover);
+      position: absolute;
+      inset: 2px 0 auto 0;
+      color: var(--black);
+      background: var(--white);
+      transform: translateY(115%);
+      transition: transform .18s ease;
+    }
+
+    .logo:hover,
+    .logo:focus-visible,
+    .nav a:hover,
+    .nav a:focus-visible,
+    .cart-link:hover,
+    .cart-link:focus-visible {
+      transform: translateY(-1px);
+    }
+
+    .logo:hover::before,
+    .logo:focus-visible::before,
+    .nav a:hover::before,
+    .nav a:focus-visible::before,
+    .cart-link:hover::before,
+    .cart-link:focus-visible::before {
+      transform: scaleX(1);
+    }
+
+    .nav a:hover::after,
+    .nav a:focus-visible::after {
+      transform: translateY(0);
+    }
+
+    .logo:focus-visible,
+    .nav a:focus-visible,
+    .cart-link:focus-visible {
+      outline: 1px solid var(--white);
+      outline-offset: 4px;
     }
 
     .cart-link {
@@ -1185,10 +1259,10 @@
     <header class="topbar">
       <a class="logo" href="#top">VOIDWEAR</a>
       <nav class="nav" aria-label="Навігація">
-        <a href="#top">Головна</a>
-        <a href="#catalog">Каталог</a>
-        <a href="#about">Про нас</a>
-        <a href="#delivery">Доставка</a>
+        <a href="#top" data-hover="Головна">Головна</a>
+        <a href="#catalog" data-hover="Каталог">Каталог</a>
+        <a href="#about" data-hover="Про нас">Про нас</a>
+        <a href="#delivery" data-hover="Доставка">Доставка</a>
         <button class="cart-link" type="button" data-cart-open>Кошик <span class="cart-count" data-cart-count>0</span></button>
       </nav>
     </header>
