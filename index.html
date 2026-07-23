@@ -555,7 +555,7 @@
     }
 
     .product-image::after {
-      content: "QUICK VIEW";
+      content: attr(data-quick-view);
       inset: auto 0 0;
       display: grid;
       place-items: center;
@@ -1559,7 +1559,7 @@
       ru: {
         title: 'VOIDWEAR Drop 01 | Демо-магазин', description: 'Демо-магазин VOIDWEAR: каталог, карточка товара, корзина, размеры и доставка.', navAria: 'Навигация', languageGroup: 'Язык / Language',
         nav: ['Главная', 'Каталог', 'О нас', 'Доставка'], cartLabel: 'Корзина', heroLead: 'Лимитированная коллекция для тех, кто создаёт собственный стиль.', heroCollection: 'Смотреть коллекцию', heroShop: 'Магазин',
-        catalogCopy: 'Наша первая коллекция, вдохновлённая улицей и авангардом. Минимализм, комфорт и выразительность.', addToCart: 'Добавить в корзину', editorialTitle: 'В правильном образе возможно всё', editorialCta: 'Смотреть худи',
+        catalogCopy: 'Наша первая коллекция, вдохновлённая улицей и авангардом. Минимализм, комфорт и выразительность.', addToCart: 'Добавить в корзину', quickView: 'БЫСТРЫЙ ПРОСМОТР', editorialTitle: 'В правильном образе возможно всё', editorialCta: 'Смотреть худи',
         winterTitle: 'Зимняя коллекция', winterCopy: 'Собираем образы для бетонного холода', winterCta: 'В корзину', aboutTitle: 'О VOIDWEAR', aboutCopy: 'VOIDWEAR — украинский микро-бренд streetwear, который создаёт одежду для смелых и свободных. Наша задача — дать тебе возможность выразить себя через стиль без границ. Одежда, которая вдохновляет и подчёркивает индивидуальность.',
         howTitle: 'Как заказать', stepTitles: ['Выберите товар', 'Добавьте в корзину', 'Оформите заказ', 'Получите доставку'], stepCopies: ['Посмотрите коллекцию и найдите свой идеальный образ.', 'Выберите размер и цвет, затем нажмите «Добавить в корзину».', 'Заполните контакты и выберите способ оплаты.', 'Ваш заказ будет доставлен в кратчайшие сроки.'],
         sizesTitle: 'Таблица размеров', sizeHeads: ['Размер', 'Обхват груди (см)', 'Обхват талии (см)', 'Обхват бёдер (см)'], deliveryTitle: 'Доставка и возврат', deliveryCopies: ['Бесплатная доставка по Украине в отделения и почтоматы, курьером или с примеркой.', 'Доставка доступна в будни и выходные с 10:00 до 18:00. Срок зависит от города и службы доставки.'], deliveryItems: ['Возврат возможен в течение 14 дней после получения.', 'Обмен размера возможен, если вещь сохранена в товарном виде.', 'Оплата на этом демо-сайте не подключена.'],
@@ -1569,7 +1569,7 @@
       en: {
         title: 'VOIDWEAR Drop 01 | Demo Store', description: 'VOIDWEAR demo store: catalog, product details, cart, sizing, and delivery.', navAria: 'Navigation', languageGroup: 'Language / Язык',
         nav: ['Home', 'Catalog', 'About', 'Delivery'], cartLabel: 'Cart', heroLead: 'Limited collection for those who build their own style.', heroCollection: 'View collection', heroShop: 'Shop now',
-        catalogCopy: 'Our first collection, shaped by the street and the avant-garde. Minimalism, comfort, and presence.', addToCart: 'Add to cart', editorialTitle: 'In the right outfit anything is possible', editorialCta: 'View hoodie',
+        catalogCopy: 'Our first collection, shaped by the street and the avant-garde. Minimalism, comfort, and presence.', addToCart: 'Add to cart', quickView: 'QUICK VIEW', editorialTitle: 'In the right outfit anything is possible', editorialCta: 'View hoodie',
         winterTitle: 'Winter collection', winterCopy: 'We build looks for the concrete cold', winterCta: 'Go to cart', aboutTitle: 'About VOIDWEAR', aboutCopy: 'VOIDWEAR is a Ukrainian streetwear micro-brand creating clothing for the bold and free. Our purpose is to give you a way to express yourself through style without boundaries. Clothing that inspires and underlines your individuality.',
         howTitle: 'How to order', stepTitles: ['Choose an item', 'Add it to cart', 'Place your order', 'Receive delivery'], stepCopies: ['Browse the collection and find your ideal look.', 'Choose a size and color, then press “Add to cart”.', 'Fill in your contact details and choose a payment method.', 'Your order will be delivered as quickly as possible.'],
         sizesTitle: 'Size guide', sizeHeads: ['Size', 'Chest (cm)', 'Waist (cm)', 'Hips (cm)'], deliveryTitle: 'Delivery & returns', deliveryCopies: ['Free delivery across Ukraine to Nova Poshta branches and parcel lockers, by courier, or with fitting.', 'Delivery is available on weekdays and weekends from 10:00 to 18:00. Timing depends on your city and delivery service.'], deliveryItems: ['Returns are accepted within 14 days after delivery.', 'Size exchanges are available when the item remains in saleable condition.', 'Payments are not connected in this demo store.'],
@@ -1622,6 +1622,7 @@
         const image = card.querySelector('img');
         card.querySelector('.product-name').textContent = product.name;
         image.alt = product.name;
+        card.querySelector('.product-image').dataset.quickView = text.quickView;
         card.querySelector('[data-add]').textContent = text.addToCart;
       });
     }
