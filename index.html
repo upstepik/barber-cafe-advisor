@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="uk">
+<html lang="ru">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -88,6 +88,41 @@
       font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
+    }
+
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, .7);
+    }
+
+    .lang-switch button {
+      width: 34px;
+      min-height: 28px;
+      border: 0;
+      background: transparent;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: 0;
+      transition: background .16s ease, color .16s ease;
+    }
+
+    .lang-switch button + button { border-left: 1px solid rgba(255, 255, 255, .7); }
+
+    .lang-switch button:hover,
+    .lang-switch button:focus-visible { background: #2a2a2a; outline: 0; }
+
+    .lang-switch button[aria-pressed="true"] {
+      background: var(--white);
+      color: var(--black);
     }
 
     .nav a,
@@ -1153,9 +1188,23 @@
       }
 
       .nav {
-        width: 100%;
         flex-wrap: wrap;
         gap: 12px 18px;
+      }
+
+      .header-tools {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        width: 100%;
+        align-items: start;
+        gap: 12px;
+      }
+
+      .nav { width: auto; min-width: 0; }
+
+      .lang-switch button {
+        width: 36px;
+        min-height: 32px;
       }
 
       .hero,
@@ -1282,34 +1331,40 @@
   <div class="page">
     <header class="topbar">
       <a class="logo" href="#top">VOIDWEAR</a>
-      <nav class="nav" aria-label="Навігація">
-        <a href="#top" data-hover="Головна">Головна</a>
-        <a href="#catalog" data-hover="Каталог">Каталог</a>
-        <a href="#about" data-hover="Про нас">Про нас</a>
-        <a href="#delivery" data-hover="Доставка">Доставка</a>
-        <button class="cart-link" type="button" data-cart-open>Кошик <span class="cart-count" data-cart-count>0</span></button>
-      </nav>
+      <div class="header-tools">
+        <nav class="nav" aria-label="Навигация" data-nav-aria>
+          <a href="#top" data-hover="Главная" data-nav-home>Главная</a>
+          <a href="#catalog" data-hover="Каталог" data-nav-catalog>Каталог</a>
+          <a href="#about" data-hover="О нас" data-nav-about>О нас</a>
+          <a href="#delivery" data-hover="Доставка" data-nav-delivery>Доставка</a>
+          <button class="cart-link" type="button" data-cart-open><span data-cart-label>Корзина</span> <span class="cart-count" data-cart-count>0</span></button>
+        </nav>
+        <div class="lang-switch" role="group" aria-label="Язык / Language" data-lang-group>
+          <button type="button" data-lang-switch="ru" aria-pressed="true">RU</button>
+          <button type="button" data-lang-switch="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
     </header>
 
     <main id="top">
       <section class="hero" aria-label="VOIDWEAR DROP 01">
-        <img src="assets/ai-hero.png" alt="VOIDWEAR DROP 01: моделі в чорному streetwear на бетонному фоні">
+        <img src="assets/ai-hero.png" alt="VOIDWEAR DROP 01: модели в чёрном streetwear на бетонном фоне" data-hero-img>
         <div class="hero-rail" aria-hidden="true">
-          <span>VOIDWEAR DROP 01 / LIMITED STOCK / CONCRETE UNIFORM / KYIV STREETWEAR / VOIDWEAR DROP 01 / LIMITED STOCK / CONCRETE UNIFORM / KYIV STREETWEAR / </span>
+          <span data-hero-rail="top">VOIDWEAR DROP 01 / LIMITED EDITION / CONCRETE UNIFORM / KYIV STREETWEAR / VOIDWEAR DROP 01 / LIMITED EDITION / CONCRETE UNIFORM / KYIV STREETWEAR / </span>
         </div>
         <div class="hero-code" aria-hidden="true">
           <span>OVERSIZE.BLACK // GRAPHITE.LOGO // CARGO.VOID // RIBBED.BEANIE // CROSSBODY.TECH // PUFFER.CROPPED //</span>
         </div>
         <div class="hero-rail bottom" aria-hidden="true">
-          <span>SHOP THE DROP / TAP PRODUCT / ADD TO CART / NO PAYMENT IN DEMO / SHOP THE DROP / TAP PRODUCT / ADD TO CART / NO PAYMENT IN DEMO / </span>
+          <span data-hero-rail="bottom">СМОТРЕТЬ ДРОП / ВЫБРАТЬ ТОВАР / ДОБАВИТЬ В КОРЗИНУ / ОПЛАТА НЕ ПОДКЛЮЧЕНА / СМОТРЕТЬ ДРОП / ВЫБРАТЬ ТОВАР / ДОБАВИТЬ В КОРЗИНУ / ОПЛАТА НЕ ПОДКЛЮЧЕНА / </span>
         </div>
         <div class="hero-overlay">
           <div class="hero-copy">
             <h1 data-text="VOIDWEAR DROP 01">VOIDWEAR DROP 01</h1>
-            <p>Обмежена колекція для тих, хто створює власний стиль.</p>
+            <p data-hero-lead>Лимитированная коллекция для тех, кто создаёт собственный стиль.</p>
             <div class="hero-actions">
-              <a class="hero-action" href="#catalog">Дивитись колекцію</a>
-              <button class="hero-action dark" type="button" data-open-product="0">Магазин</button>
+              <a class="hero-action" href="#catalog" data-hero-collection>Смотреть коллекцию</a>
+              <button class="hero-action dark" type="button" data-open-product="0" data-hero-shop>Магазин</button>
             </div>
           </div>
         </div>
@@ -1317,7 +1372,7 @@
 
       <section id="catalog" class="section">
         <h1 class="section-title">DROP 01</h1>
-        <p class="section-copy">Наша перша колекція, натхненна вуличним та авангардним. Мінімалізм, комфорт та виразність.</p>
+        <p class="section-copy" data-catalog-copy>Наша первая коллекция, вдохновлённая улицей и авангардом. Минимализм, комфорт и выразительность.</p>
         <div class="catalog-grid">
           <article class="product" data-product="0">
             <button class="product-image" type="button" data-open-product="0"><img src="assets/ai-product-hoodie.png" alt="Худі Oversize Black"></button>
@@ -1353,64 +1408,64 @@
       </section>
 
       <section class="editorial-band">
-        <img src="assets/ai-editorial.png" alt="Лукбук VOIDWEAR">
+        <img src="assets/ai-editorial.png" alt="Лукбук VOIDWEAR" data-editorial-img>
         <div class="editorial-content">
-          <h2>In the right outfit anything is possible</h2>
-          <button class="btn dark" type="button" data-open-product="0">Дивитись худі</button>
+          <h2 data-editorial-title>В правильном образе возможно всё</h2>
+          <button class="btn dark" type="button" data-open-product="0" data-editorial-cta>Смотреть худи</button>
         </div>
       </section>
 
       <section class="section compact winter">
-        <h2>Winter collections</h2>
-        <p>Let us outfit you for the concrete cold</p>
-        <button class="btn dark" type="button" data-cart-open>Зайти в кошик</button>
+        <h2 data-winter-title>Зимняя коллекция</h2>
+        <p data-winter-copy>Собираем образы для бетонного холода</p>
+        <button class="btn dark" type="button" data-cart-open data-winter-cta>В корзину</button>
       </section>
 
       <section id="about" class="section about">
         <div>
-          <h2>Про VOIDWEAR</h2>
-          <p>Ми — VOIDWEAR, український мікро-бренд streetwear, що створює одяг для сміливих та вільних духом. Наша місія — дати вам можливість виразити себе через стиль, який не має кордонів. Одяг, що надихає та підкреслює вашу індивідуальність.</p>
+          <h2 data-about-title>О VOIDWEAR</h2>
+          <p data-about-copy>VOIDWEAR — украинский микро-бренд streetwear, который создаёт одежду для смелых и свободных. Наша задача — дать тебе возможность выразить себя через стиль без границ. Одежда, которая вдохновляет и подчёркивает индивидуальность.</p>
         </div>
         <div class="about-photo">
-          <img src="assets/ai-about.png" alt="Команда VOIDWEAR у міському streetwear">
+          <img src="assets/ai-about.png" alt="Команда VOIDWEAR в городском streetwear" data-about-img>
         </div>
       </section>
 
       <section class="how">
-        <h2>Як замовити</h2>
+        <h2 data-how-title>Как заказать</h2>
         <div class="steps">
           <article class="step">
             <div class="step-icon">1</div>
-            <h3>Оберіть товар</h3>
-            <p>Перегляньте колекцію та знайдіть свій ідеальний лук.</p>
+            <h3 data-step-title="0">Выберите товар</h3>
+            <p data-step-copy="0">Посмотрите коллекцию и найдите свой идеальный образ.</p>
           </article>
           <article class="step">
             <div class="step-icon">2</div>
-            <h3>Додайте в кошик</h3>
-            <p>Оберіть розмір та колір, натисніть «Додати в кошик».</p>
+            <h3 data-step-title="1">Добавьте в корзину</h3>
+            <p data-step-copy="1">Выберите размер и цвет, затем нажмите «Добавить в корзину».</p>
           </article>
           <article class="step">
             <div class="step-icon">3</div>
-            <h3>Оформіть замовлення</h3>
-            <p>Заповніть контактні дані та оберіть спосіб оплати.</p>
+            <h3 data-step-title="2">Оформите заказ</h3>
+            <p data-step-copy="2">Заполните контакты и выберите способ оплаты.</p>
           </article>
           <article class="step">
             <div class="step-icon">4</div>
-            <h3>Отримайте доставку</h3>
-            <p>Ваше замовлення буде доставлено в найкоротші терміни.</p>
+            <h3 data-step-title="3">Получите доставку</h3>
+            <p data-step-copy="3">Ваш заказ будет доставлен в кратчайшие сроки.</p>
           </article>
         </div>
       </section>
 
       <section class="section sizes">
-        <h2>Таблиця розмірів</h2>
+        <h2 data-sizes-title>Таблица размеров</h2>
         <table>
           <thead>
             <tr>
-              <th>Розмір</th>
-              <th>Обхват грудей (см)</th>
-              <th>Обхват талії (см)</th>
-              <th>Обхват стегон (см)</th>
+              <th data-size-head="0">Размер</th>
+              <th data-size-head="1">Обхват груди (см)</th>
+              <th data-size-head="2">Обхват талии (см)</th>
+              <th data-size-head="3">Обхват бёдер (см)</th>
             </tr>
           </thead>
           <tbody>
@@ -1423,19 +1478,19 @@
       </section>
 
       <section id="delivery" class="delivery">
-        <h2>Доставка та повернення</h2>
-        <p>Безкоштовна доставка в межах України способами, компаніями, службами; доставка на відділення і поштомати, доставка кур'єром, доставка і примірка.</p>
-        <p>Доставка можлива у будні та вихідні дні з 10:00 до 18:00. Терміни залежать від міста отримувача та служби доставки.</p>
+        <h2 data-delivery-title>Доставка и возврат</h2>
+        <p data-delivery-copy="0">Бесплатная доставка по Украине в отделения и почтоматы, курьером или с примеркой.</p>
+        <p data-delivery-copy="1">Доставка доступна в будни и выходные с 10:00 до 18:00. Срок зависит от города и службы доставки.</p>
         <ul>
-          <li>Повернення протягом 14 днів після отримання.</li>
-          <li>Обмін розміру можливий, якщо річ збережена в товарному стані.</li>
-          <li>Оплата у цьому демо-сайті не підключена.</li>
+          <li data-delivery-item="0">Возврат возможен в течение 14 дней после получения.</li>
+          <li data-delivery-item="1">Обмен размера возможен, если вещь сохранена в товарном виде.</li>
+          <li data-delivery-item="2">Оплата на этом демо-сайте не подключена.</li>
         </ul>
         <div class="drop-marquee" aria-hidden="true">
-          <span>VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / </span>
+          <span data-delivery-marquee>VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / </span>
         </div>
         <footer class="footer">
-          <div class="socials" aria-label="Соціальні мережі">
+          <div class="socials" aria-label="Социальные сети" data-socials-aria>
             <span class="social">F</span>
             <span class="social">IG</span>
             <span class="social">TG</span>
@@ -1444,7 +1499,7 @@
           <div>
             <strong>VOIDWEAR</strong><br>
             +38 (093) 226-12-10<br>
-            Демо-сайт для портфоліо. Оплата не підключена.
+            <span data-footer-demo>Демо-сайт для портфолио. Оплата не подключена.</span>
           </div>
         </footer>
       </section>
@@ -1452,92 +1507,233 @@
   </div>
 
   <div class="backdrop" data-product-modal aria-hidden="true">
-    <article class="modal" role="dialog" aria-modal="true" aria-label="Деталі товару">
+    <article class="modal" role="dialog" aria-modal="true" aria-label="Детали товара" data-modal-aria>
       <div class="modal-gallery">
         <div class="modal-main"><img data-modal-img src="assets/ai-product-hoodie.png" alt=""></div>
       </div>
       <div class="modal-copy">
-        <button class="close" type="button" data-close-product aria-label="Закрити">×</button>
+        <button class="close" type="button" data-close-product aria-label="Закрыть" data-close-product-aria>×</button>
         <small>Voidwear</small>
         <h2 data-modal-title>Чорне худі оверсайз</h2>
         <strong data-modal-price>1890 грн</strong>
         <p data-modal-desc>Високоякісне базове худі оверсайз крою. М'який, дихаючий матеріал, ідеальний для прохолодної погоди та стильного образу. Зручний капюшон та кишені.</p>
-        <label>Оберіть розмір</label>
-        <div class="size-row" role="group" aria-label="Оберіть розмір">
+        <label data-select-size>Выберите размер</label>
+        <div class="size-row" role="group" aria-label="Выберите размер" data-size-row-aria>
           <button class="size-option" type="button" data-size-option="S" aria-pressed="false">S</button>
           <button class="size-option is-active" type="button" data-size-option="M" aria-pressed="true">M</button>
           <button class="size-option" type="button" data-size-option="L" aria-pressed="false">L</button>
           <button class="size-option" type="button" data-size-option="XL" aria-pressed="false">XL</button>
         </div>
-        <div class="qty" aria-label="Кількість">
-          <button type="button" data-qty-dec aria-label="Зменшити кількість">−</button><span data-modal-qty>1</span><button type="button" data-qty-inc aria-label="Збільшити кількість">+</button>
+        <div class="qty" aria-label="Количество" data-qty-aria>
+          <button type="button" data-qty-dec aria-label="Уменьшить количество" data-qty-dec-aria>−</button><span data-modal-qty>1</span><button type="button" data-qty-inc aria-label="Увеличить количество" data-qty-inc-aria>+</button>
         </div>
-        <button class="btn dark" type="button" data-modal-add>Додати в кошик</button>
+        <button class="btn dark" type="button" data-modal-add data-modal-add-label>Добавить в корзину</button>
       </div>
     </article>
   </div>
 
   <aside class="drawer" data-cart-drawer aria-hidden="true">
     <div class="cart-panel">
-      <button class="close" type="button" data-cart-close aria-label="Закрити">×</button>
-      <h2>Кошик</h2>
+      <button class="close" type="button" data-cart-close aria-label="Закрыть" data-cart-close-aria>×</button>
+      <h2 data-cart-title>Корзина</h2>
       <div data-cart-items></div>
-      <div class="cart-total"><span>Разом:</span><span data-cart-total>₴0</span></div>
-      <input aria-label="Ім'я" placeholder="Ім'я">
-      <input aria-label="Телефон" placeholder="Телефон">
-      <input aria-label="Місто" placeholder="Місто">
-      <input aria-label="Відділення Нової Пошти" placeholder="Відділення Нової Пошти">
-      <button class="btn dark" type="button" data-order>Підтвердити замовлення</button>
+      <div class="cart-total"><span data-cart-total-label>Итого:</span><span data-cart-total>₴0</span></div>
+      <input data-checkout-input="name" aria-label="Имя" placeholder="Имя">
+      <input data-checkout-input="phone" aria-label="Телефон" placeholder="Телефон">
+      <input data-checkout-input="city" aria-label="Город" placeholder="Город">
+      <input data-checkout-input="branch" aria-label="Отделение Новой Почты" placeholder="Отделение Новой Почты">
+      <button class="btn dark" type="button" data-order data-order-label>Подтвердить заказ</button>
     </div>
     <div class="cart-added" data-cart-added aria-hidden="true">
       <div>
         <span class="cart-added-mark">✓</span>
-        <strong>Додано в кошик</strong>
+        <strong data-added-label>Добавлено в корзину</strong>
       </div>
     </div>
   </aside>
 
-  <div class="toast" data-toast>Дякуємо! Ми зв'яжемося з вами.</div>
+  <div class="toast" data-toast>Спасибо! Мы свяжемся с вами.</div>
 
   <script>
+    const copy = {
+      ru: {
+        title: 'VOIDWEAR Drop 01 | Демо-магазин', description: 'Демо-магазин VOIDWEAR: каталог, карточка товара, корзина, размеры и доставка.', navAria: 'Навигация', languageGroup: 'Язык / Language',
+        nav: ['Главная', 'Каталог', 'О нас', 'Доставка'], cartLabel: 'Корзина', heroLead: 'Лимитированная коллекция для тех, кто создаёт собственный стиль.', heroCollection: 'Смотреть коллекцию', heroShop: 'Магазин',
+        catalogCopy: 'Наша первая коллекция, вдохновлённая улицей и авангардом. Минимализм, комфорт и выразительность.', addToCart: 'Добавить в корзину', editorialTitle: 'В правильном образе возможно всё', editorialCta: 'Смотреть худи',
+        winterTitle: 'Зимняя коллекция', winterCopy: 'Собираем образы для бетонного холода', winterCta: 'В корзину', aboutTitle: 'О VOIDWEAR', aboutCopy: 'VOIDWEAR — украинский микро-бренд streetwear, который создаёт одежду для смелых и свободных. Наша задача — дать тебе возможность выразить себя через стиль без границ. Одежда, которая вдохновляет и подчёркивает индивидуальность.',
+        howTitle: 'Как заказать', stepTitles: ['Выберите товар', 'Добавьте в корзину', 'Оформите заказ', 'Получите доставку'], stepCopies: ['Посмотрите коллекцию и найдите свой идеальный образ.', 'Выберите размер и цвет, затем нажмите «Добавить в корзину».', 'Заполните контакты и выберите способ оплаты.', 'Ваш заказ будет доставлен в кратчайшие сроки.'],
+        sizesTitle: 'Таблица размеров', sizeHeads: ['Размер', 'Обхват груди (см)', 'Обхват талии (см)', 'Обхват бёдер (см)'], deliveryTitle: 'Доставка и возврат', deliveryCopies: ['Бесплатная доставка по Украине в отделения и почтоматы, курьером или с примеркой.', 'Доставка доступна в будни и выходные с 10:00 до 18:00. Срок зависит от города и службы доставки.'], deliveryItems: ['Возврат возможен в течение 14 дней после получения.', 'Обмен размера возможен, если вещь сохранена в товарном виде.', 'Оплата на этом демо-сайте не подключена.'],
+        footerDemo: 'Демо-сайт для портфолио. Оплата не подключена.', socialAria: 'Социальные сети', modalAria: 'Детали товара', close: 'Закрыть', selectSize: 'Выберите размер', quantity: 'Количество', decreaseQty: 'Уменьшить количество', increaseQty: 'Увеличить количество', cartTitle: 'Корзина', total: 'Итого:', checkout: { name: 'Имя', phone: 'Телефон', city: 'Город', branch: 'Отделение Новой Почты' }, order: 'Подтвердить заказ', added: 'Добавлено в корзину', toast: 'Спасибо! Мы свяжемся с вами.', cartEmpty: 'Корзина пуста. Добавьте товар из каталога.', size: 'Размер', qty: 'Кол-во',
+        heroAlt: 'VOIDWEAR DROP 01: модели в чёрном streetwear на бетонном фоне', editorialAlt: 'Лукбук VOIDWEAR', aboutAlt: 'Команда VOIDWEAR в городском streetwear', heroRailTop: 'VOIDWEAR DROP 01 / ЛИМИТИРОВАННЫЙ ТИРАЖ / БЕТОННАЯ ФОРМА / KYIV STREETWEAR / VOIDWEAR DROP 01 / ЛИМИТИРОВАННЫЙ ТИРАЖ / БЕТОННАЯ ФОРМА / KYIV STREETWEAR / ', heroRailBottom: 'СМОТРЕТЬ ДРОП / ВЫБРАТЬ ТОВАР / ДОБАВИТЬ В КОРЗИНУ / ОПЛАТА НЕ ПОДКЛЮЧЕНА / СМОТРЕТЬ ДРОП / ВЫБРАТЬ ТОВАР / ДОБАВИТЬ В КОРЗИНУ / ОПЛАТА НЕ ПОДКЛЮЧЕНА / ', deliveryMarquee: 'VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / '
+      },
+      en: {
+        title: 'VOIDWEAR Drop 01 | Demo Store', description: 'VOIDWEAR demo store: catalog, product details, cart, sizing, and delivery.', navAria: 'Navigation', languageGroup: 'Language / Язык',
+        nav: ['Home', 'Catalog', 'About', 'Delivery'], cartLabel: 'Cart', heroLead: 'Limited collection for those who build their own style.', heroCollection: 'View collection', heroShop: 'Shop now',
+        catalogCopy: 'Our first collection, shaped by the street and the avant-garde. Minimalism, comfort, and presence.', addToCart: 'Add to cart', editorialTitle: 'In the right outfit anything is possible', editorialCta: 'View hoodie',
+        winterTitle: 'Winter collection', winterCopy: 'We build looks for the concrete cold', winterCta: 'Go to cart', aboutTitle: 'About VOIDWEAR', aboutCopy: 'VOIDWEAR is a Ukrainian streetwear micro-brand creating clothing for the bold and free. Our purpose is to give you a way to express yourself through style without boundaries. Clothing that inspires and underlines your individuality.',
+        howTitle: 'How to order', stepTitles: ['Choose an item', 'Add it to cart', 'Place your order', 'Receive delivery'], stepCopies: ['Browse the collection and find your ideal look.', 'Choose a size and color, then press “Add to cart”.', 'Fill in your contact details and choose a payment method.', 'Your order will be delivered as quickly as possible.'],
+        sizesTitle: 'Size guide', sizeHeads: ['Size', 'Chest (cm)', 'Waist (cm)', 'Hips (cm)'], deliveryTitle: 'Delivery & returns', deliveryCopies: ['Free delivery across Ukraine to Nova Poshta branches and parcel lockers, by courier, or with fitting.', 'Delivery is available on weekdays and weekends from 10:00 to 18:00. Timing depends on your city and delivery service.'], deliveryItems: ['Returns are accepted within 14 days after delivery.', 'Size exchanges are available when the item remains in saleable condition.', 'Payments are not connected in this demo store.'],
+        footerDemo: 'Portfolio demo site. Payments are not connected.', socialAria: 'Social media', modalAria: 'Product details', close: 'Close', selectSize: 'Select size', quantity: 'Quantity', decreaseQty: 'Decrease quantity', increaseQty: 'Increase quantity', cartTitle: 'Cart', total: 'Total:', checkout: { name: 'Name', phone: 'Phone', city: 'City', branch: 'Nova Poshta branch' }, order: 'Confirm order', added: 'Added to cart', toast: 'Thank you! We will contact you shortly.', cartEmpty: 'Your cart is empty. Add an item from the catalog.', size: 'Size', qty: 'Qty',
+        heroAlt: 'VOIDWEAR DROP 01: models in black streetwear against a concrete backdrop', editorialAlt: 'VOIDWEAR lookbook', aboutAlt: 'VOIDWEAR team in city streetwear', heroRailTop: 'VOIDWEAR DROP 01 / LIMITED EDITION / CONCRETE UNIFORM / KYIV STREETWEAR / VOIDWEAR DROP 01 / LIMITED EDITION / CONCRETE UNIFORM / KYIV STREETWEAR / ', heroRailBottom: 'SHOP THE DROP / CHOOSE A PRODUCT / ADD TO CART / NO PAYMENT IN DEMO / SHOP THE DROP / CHOOSE A PRODUCT / ADD TO CART / NO PAYMENT IN DEMO / ', deliveryMarquee: 'VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / VOIDWEAR DROP 01 / CONCRETE UNIFORM / KYIV STREETWEAR / '
+      }
+    };
+
     const products = [
-      { name: 'Худі Oversize Black', modal: 'Чорне худі оверсайз', price: 2300, img: 'assets/ai-product-hoodie.png', modalImg: 'assets/ai-product-hoodie.png', desc: "Високоякісне базове худі оверсайз крою. М'який, дихаючий матеріал, ідеальний для прохолодної погоди та стильного образу." },
-      { name: 'Футболка Graphite Logo', modal: 'Футболка Graphite Logo', price: 1500, img: 'assets/ai-product-tee.png', modalImg: 'assets/ai-product-tee.png', desc: 'Щільна графітова футболка з мінімальним логотипом. Працює як база під куртку або самостійний акцент.' },
-      { name: 'Штани Cargo Void', modal: 'Штани Cargo Void', price: 2800, img: 'assets/ai-product-cargo.png', modalImg: 'assets/ai-product-cargo.png', desc: 'Прямий cargo-силует з функціональними кишенями та щільною тканиною для щоденного міського ритму.' },
-      { name: 'Шапка Ribbed Beanie', modal: 'Шапка Ribbed Beanie', price: 850, img: 'assets/ai-product-beanie.png', modalImg: 'assets/ai-product-beanie.png', desc: 'Ребриста чорна шапка без зайвого брендингу. Тепла, лаконічна, підходить до всього DROP 01.' },
-      { name: 'Сумка Crossbody Tech', modal: 'Сумка Crossbody Tech', price: 1850, img: 'assets/ai-product-bag.png', modalImg: 'assets/ai-product-bag.png', desc: 'Компактна crossbody-сумка для телефону, ключів та щоденних речей. Технічний акцент у комплекті.' },
-      { name: 'Куртка Puffer Cropped', modal: 'Куртка Puffer Cropped', price: 4500, img: 'assets/ai-product-puffer.png', modalImg: 'assets/ai-product-puffer.png', desc: 'Коротка puffer-куртка з обʼємною формою. Чорний верхній шар для холодного сезону.' }
+      { price: 2300, img: 'assets/ai-product-hoodie.png', modalImg: 'assets/ai-product-hoodie.png', ru: { name: 'Худи Oversize Black', modal: 'Чёрное худи оверсайз', desc: 'Базовое худи свободного кроя из мягкого дышащего материала. Удобный капюшон и карман для ежедневного городского ритма.' }, en: { name: 'Hoodie Oversize Black', modal: 'Black oversized hoodie', desc: 'A relaxed everyday hoodie in soft, breathable fabric. It has a comfortable hood and pocket for the city rhythm.' } },
+      { price: 1500, img: 'assets/ai-product-tee.png', modalImg: 'assets/ai-product-tee.png', ru: { name: 'Футболка Graphite Logo', modal: 'Футболка Graphite Logo', desc: 'Плотная графитовая футболка с минимальным логотипом. Работает как база под куртку или самостоятельный акцент.' }, en: { name: 'Graphite Logo T-shirt', modal: 'Graphite Logo T-shirt', desc: 'A heavyweight graphite T-shirt with a minimal logo. Works as a layer under a jacket or as a clean standalone piece.' } },
+      { price: 2800, img: 'assets/ai-product-cargo.png', modalImg: 'assets/ai-product-cargo.png', ru: { name: 'Брюки Cargo Void', modal: 'Брюки Cargo Void', desc: 'Прямой cargo-силуэт с функциональными карманами и плотной тканью для ежедневного городского ритма.' }, en: { name: 'Cargo Void pants', modal: 'Cargo Void pants', desc: 'Straight cargo trousers with functional pockets and dense fabric for the daily city rhythm.' } },
+      { price: 850, img: 'assets/ai-product-beanie.png', modalImg: 'assets/ai-product-beanie.png', ru: { name: 'Шапка Ribbed Beanie', modal: 'Шапка Ribbed Beanie', desc: 'Чёрная ребристая шапка без лишнего брендинга. Тёплая, лаконичная, подходит ко всему DROP 01.' }, en: { name: 'Ribbed Beanie', modal: 'Ribbed Beanie', desc: 'A black ribbed beanie without unnecessary branding. Warm, simple, and made for every DROP 01 look.' } },
+      { price: 1850, img: 'assets/ai-product-bag.png', modalImg: 'assets/ai-product-bag.png', ru: { name: 'Сумка Crossbody Tech', modal: 'Сумка Crossbody Tech', desc: 'Компактная crossbody-сумка для телефона, ключей и ежедневных вещей. Технический акцент в образе.' }, en: { name: 'Crossbody Tech bag', modal: 'Crossbody Tech bag', desc: 'A compact crossbody bag for your phone, keys, and daily essentials. A technical accent for the full look.' } },
+      { price: 4500, img: 'assets/ai-product-puffer.png', modalImg: 'assets/ai-product-puffer.png', ru: { name: 'Куртка Puffer Cropped', modal: 'Куртка Puffer Cropped', desc: 'Короткая puffer-куртка с объёмной формой. Чёрный верхний слой для холодного сезона.' }, en: { name: 'Puffer Cropped jacket', modal: 'Puffer Cropped jacket', desc: 'A cropped puffer jacket with a voluminous profile. The black outer layer for the cold season.' } }
     ];
 
     const cart = [];
     let currentProduct = 0;
     let modalQuantity = 1;
     let modalSize = 'M';
-    const fmt = value => '₴' + value;
+    let language = 'ru';
+    try {
+      language = localStorage.getItem('voidwear-language') === 'en' ? 'en' : 'ru';
+    } catch (_) {}
+
+    const fmt = value => language === 'en' ? `₴${value.toLocaleString('en-US')}` : `₴${value}`;
     const $ = selector => document.querySelector(selector);
     const $$ = selector => Array.from(document.querySelectorAll(selector));
+
+    function setText(selector, value) {
+      const element = $(selector);
+      if (element) element.textContent = value;
+    }
+
+    function setAttr(selector, attribute, value) {
+      const element = $(selector);
+      if (element) element.setAttribute(attribute, value);
+    }
+
+    function productCopy(index) {
+      return products[index][language];
+    }
+
+    function renderProductCards() {
+      const text = copy[language];
+      $$('.product').forEach(card => {
+        const index = Number(card.dataset.product);
+        const product = productCopy(index);
+        const image = card.querySelector('img');
+        card.querySelector('.product-name').textContent = product.name;
+        image.alt = product.name;
+        card.querySelector('[data-add]').textContent = text.addToCart;
+      });
+    }
+
+    function renderModalProduct(index) {
+      const product = products[index];
+      const text = productCopy(index);
+      $('[data-modal-title]').textContent = text.modal;
+      $('[data-modal-price]').textContent = fmt(product.price);
+      $('[data-modal-desc]').textContent = text.desc;
+      $('[data-modal-img]').src = product.modalImg;
+      $('[data-modal-img]').alt = text.modal;
+    }
+
+    function setLanguage(nextLanguage, persist = true) {
+      language = nextLanguage === 'en' ? 'en' : 'ru';
+      const text = copy[language];
+      document.documentElement.lang = language;
+      document.title = text.title;
+      document.querySelector('meta[name="description"]').setAttribute('content', text.description);
+
+      const navSelectors = ['[data-nav-home]', '[data-nav-catalog]', '[data-nav-about]', '[data-nav-delivery]'];
+      navSelectors.forEach((selector, index) => {
+        setText(selector, text.nav[index]);
+        setAttr(selector, 'data-hover', text.nav[index]);
+      });
+      setAttr('[data-nav-aria]', 'aria-label', text.navAria);
+      setText('[data-cart-label]', text.cartLabel);
+      setAttr('[data-lang-group]', 'aria-label', text.languageGroup);
+      $$('[data-lang-switch]').forEach(button => {
+        const active = button.dataset.langSwitch === language;
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+
+      setText('[data-hero-lead]', text.heroLead);
+      setText('[data-hero-collection]', text.heroCollection);
+      setText('[data-hero-shop]', text.heroShop);
+      setText('[data-catalog-copy]', text.catalogCopy);
+      setText('[data-editorial-title]', text.editorialTitle);
+      setText('[data-editorial-cta]', text.editorialCta);
+      setText('[data-winter-title]', text.winterTitle);
+      setText('[data-winter-copy]', text.winterCopy);
+      setText('[data-winter-cta]', text.winterCta);
+      setText('[data-about-title]', text.aboutTitle);
+      setText('[data-about-copy]', text.aboutCopy);
+      setText('[data-how-title]', text.howTitle);
+      setText('[data-sizes-title]', text.sizesTitle);
+      setText('[data-delivery-title]', text.deliveryTitle);
+      setText('[data-footer-demo]', text.footerDemo);
+      setAttr('[data-socials-aria]', 'aria-label', text.socialAria);
+      $$('[data-step-title]').forEach((element, index) => { element.textContent = text.stepTitles[index]; });
+      $$('[data-step-copy]').forEach((element, index) => { element.textContent = text.stepCopies[index]; });
+      $$('[data-size-head]').forEach((element, index) => { element.textContent = text.sizeHeads[index]; });
+      $$('[data-delivery-copy]').forEach((element, index) => { element.textContent = text.deliveryCopies[index]; });
+      $$('[data-delivery-item]').forEach((element, index) => { element.textContent = text.deliveryItems[index]; });
+      setAttr('[data-hero-img]', 'alt', text.heroAlt);
+      setAttr('[data-editorial-img]', 'alt', text.editorialAlt);
+      setAttr('[data-about-img]', 'alt', text.aboutAlt);
+      setText('[data-hero-rail="top"]', text.heroRailTop);
+      setText('[data-hero-rail="bottom"]', text.heroRailBottom);
+      setText('[data-delivery-marquee]', text.deliveryMarquee);
+
+      setAttr('[data-modal-aria]', 'aria-label', text.modalAria);
+      setAttr('[data-close-product-aria]', 'aria-label', text.close);
+      setAttr('[data-cart-close-aria]', 'aria-label', text.close);
+      setText('[data-select-size]', text.selectSize);
+      setAttr('[data-size-row-aria]', 'aria-label', text.selectSize);
+      setAttr('[data-qty-aria]', 'aria-label', text.quantity);
+      setAttr('[data-qty-dec-aria]', 'aria-label', text.decreaseQty);
+      setAttr('[data-qty-inc-aria]', 'aria-label', text.increaseQty);
+      setText('[data-modal-add-label]', text.addToCart);
+      setText('[data-cart-title]', text.cartTitle);
+      setText('[data-cart-total-label]', text.total);
+      $$('[data-checkout-input]').forEach(input => {
+        const label = text.checkout[input.dataset.checkoutInput];
+        input.setAttribute('aria-label', label);
+        input.setAttribute('placeholder', label);
+      });
+      setText('[data-order-label]', text.order);
+      setText('[data-added-label]', text.added);
+      setText('[data-toast]', text.toast);
+
+      renderProductCards();
+      renderModalProduct(currentProduct);
+      updateCart();
+      if (persist) {
+        try { localStorage.setItem('voidwear-language', language); } catch (_) {}
+      }
+    }
 
     function updateCart() {
       const count = cart.reduce((sum, item) => sum + item.qty, 0);
       $('[data-cart-count]').textContent = count;
       const items = $('[data-cart-items]');
-      items.innerHTML = cart.length ? '' : '<p>Кошик порожній. Додайте товар з каталогу.</p>';
+      items.innerHTML = cart.length ? '' : `<p>${copy[language].cartEmpty}</p>`;
       let total = 0;
       cart.forEach(item => {
-        total += item.price * item.qty;
+        const product = products[item.index];
+        const productText = productCopy(item.index);
+        total += product.price * item.qty;
         const el = document.createElement('div');
         el.className = 'cart-item';
-        el.innerHTML = `<img src="${item.img}" alt=""><div><strong>${item.name}</strong><br>Size: ${item.size}<br>Qty: ${item.qty}</div><span>${fmt(item.price * item.qty)}</span>`;
+        el.innerHTML = `<img src="${product.img}" alt="${productText.name}"><div><strong>${productText.name}</strong><br>${copy[language].size}: ${item.size}<br>${copy[language].qty}: ${item.qty}</div><span>${fmt(product.price * item.qty)}</span>`;
         items.appendChild(el);
       });
       $('[data-cart-total]').textContent = fmt(total);
     }
 
     function addToCart(index, qty = 1, size = 'M') {
-      const product = products[index];
-      const existing = cart.find(item => item.name === product.name && item.size === size);
+      const existing = cart.find(item => item.index === index && item.size === size);
       if (existing) existing.qty += qty;
-      else cart.push({ ...product, qty, size });
+      else cart.push({ index, qty, size });
       updateCart();
     }
 
@@ -1554,12 +1750,7 @@
       currentProduct = index;
       modalQuantity = 1;
       setModalSize('M');
-      const product = products[index];
-      $('[data-modal-title]').textContent = product.modal;
-      $('[data-modal-price]').textContent = fmt(product.price);
-      $('[data-modal-desc]').textContent = product.desc;
-      $('[data-modal-img]').src = product.modalImg;
-      $('[data-modal-img]').alt = product.modal;
+      renderModalProduct(index);
       $('[data-modal-qty]').textContent = modalQuantity;
       $('[data-product-modal]').classList.add('open');
       $('[data-product-modal]').setAttribute('aria-hidden', 'false');
@@ -1607,6 +1798,8 @@
       $('[data-cart-drawer]').setAttribute('aria-hidden', 'true');
     }
 
+    setLanguage(language, false);
+    $$('[data-lang-switch]').forEach(button => button.addEventListener('click', () => setLanguage(button.dataset.langSwitch)));
     $$('[data-add]').forEach(btn => btn.addEventListener('click', () => addAndOpenCart(Number(btn.dataset.add))));
     $$('[data-open-product]').forEach(btn => btn.addEventListener('click', () => openProduct(Number(btn.dataset.openProduct))));
     $$('[data-cart-open]').forEach(btn => btn.addEventListener('click', openCart));
