@@ -1593,7 +1593,10 @@
     let modalSize = 'M';
     let language = 'ru';
     try {
-      language = localStorage.getItem('voidwear-language') === 'en' ? 'en' : 'ru';
+      const requestedLanguage = new URLSearchParams(window.location.search).get('lang');
+      language = requestedLanguage === 'en' || requestedLanguage === 'ru'
+        ? requestedLanguage
+        : localStorage.getItem('voidwear-language') === 'en' ? 'en' : 'ru';
     } catch (_) {}
 
     const fmt = value => language === 'en' ? `₴${value.toLocaleString('en-US')}` : `₴${value}`;
